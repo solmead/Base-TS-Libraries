@@ -1,5 +1,5 @@
 ﻿import { ModalOption } from 'bootstrap';
-import * as EventHandler from './EventHandler';
+import * as EventHandler from './EventHandler.js';
 
 declare global {
   interface Window {

@@ -1,5 +1,5 @@
 ﻿/* tslint:disable:max-classes-per-file */
-import * as Locking from './Lock';
+import * as Locking from './Lock.js';
 
 export interface IException {
   message: string;

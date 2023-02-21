@@ -1,6 +1,6 @@
-﻿import * as DateTime from './DateTime';
-import * as SiteInfo from './SiteInfo';
-import * as Debug from './Debug';
+﻿import * as DateTime from './DateTime.js';
+import * as SiteInfo from './SiteInfo.js';
+import * as Debug from './Debug.js';
 
 export enum callTypes {
   GET,

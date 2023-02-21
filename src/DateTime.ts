@@ -1,6 +1,6 @@
-﻿import * as Tasks from './Tasks';
-import * as Debug from './Debug';
-import * as ApiLibrary from './ApiLibrary';
+﻿import * as Tasks from './Tasks.js';
+import * as Debug from './Debug.js';
+import * as ApiLibrary from './ApiLibrary.js';
 
 declare global {
   interface Date {

@@ -1,6 +1,6 @@
 ﻿/* tslint:disable:max-classes-per-file */
-import * as Tasks from './Tasks';
-import * as DateTime from './DateTime';
+import * as Tasks from './Tasks.js';
+import * as DateTime from './DateTime.js';
 
 declare global {
   interface String {

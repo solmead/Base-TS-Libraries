@@ -1,5 +1,5 @@
-﻿import * as DateTime from './DateTime';
-import { Queryable } from './LinqToJs';
+﻿import * as DateTime from './DateTime.js';
+import { Queryable } from './LinqToJs.js';
 
 export class SiteInfo {
   public sitepath: string = '/';

@@ -1,4 +1,4 @@
-﻿import * as ApiLibrary from './ApiLibrary';
+﻿import * as ApiLibrary from './ApiLibrary.js';
 
 declare global {
   interface JQueryStatic {
