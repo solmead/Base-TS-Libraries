@@ -1,13 +1,10 @@
 ﻿/* tslint:disable:max-classes-per-file */
 import * as Tasks from './Tasks';
 
-
 export class EventHandler<T> {
   private onTrigger: Array<(data?: T) => Promise<void>> = [];
 
-  constructor() {
-
-  }
+  constructor() {}
 
   trigger(data?: T): void {
     this.onTrigger.asQueryable().forEach((fn) => {
@@ -25,7 +22,7 @@ export class EventHandler<T> {
 
   addListener(callback: (data?: T) => void): void {
     const f = (data?: T): Promise<void> => {
-        const p = new Promise<void>((resolve, reject) => {
+      const p = new Promise<void>((resolve, reject) => {
         callback(data);
         resolve();
       });
@@ -60,7 +57,7 @@ export class DebouncedEventHandler<T> extends EventHandler<T> {
   }
 
   async triggerAsync(data?: T): Promise<void> {
-    if ((this.lastTime == null)) {
+    if (this.lastTime == null) {
       this.lastTime = new Date().addDays(-10);
     }
     const timeDiff = new Date().getTime() - this.lastTime.getTime();
@@ -73,7 +70,7 @@ export class DebouncedEventHandler<T> extends EventHandler<T> {
   }
 
   trigger(data?: T): void {
-    if ((this.lastTime == null)) {
+    if (this.lastTime == null) {
       this.lastTime = new Date().addDays(-10);
     }
 

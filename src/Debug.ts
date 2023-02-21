@@ -15,7 +15,6 @@ String.prototype.replaceAll = function (str1: string, str2: string, ignore?: boo
   );
 };
 
-
 export class Message {
   constructor(private _date: Date, private _message: string) {}
 
@@ -124,4 +123,3 @@ export function debugWrite(msg: string): void {
 export function addMessage(when: Date, msg: string) {
   messages.addMessage(new Message(when, msg));
 }
-

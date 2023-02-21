@@ -120,9 +120,8 @@ export function getDefaultDialogSettings(dialogType?: DialogTypeEnum): IDialogSe
   }
 }
 
-
 export function showHtmlInDialog(html: string | JQuery, options?: IDialogSettings, parent?: Window): JQuery {
-    let myParent = parent;
+  let myParent = parent;
   if (self !== top) {
     return top.showHtmlInDialog(html, options, self);
   }
@@ -138,9 +137,8 @@ export function showHtmlInDialog(html: string | JQuery, options?: IDialogSetting
     showHtmlInJQDialog(html, settings, myParent);
   } else if (settings.dialogType === DialogTypeEnum.Bootstrap) {
     showHtmlInBootstrap(html, settings, myParent);
-  } 
+  }
 }
-
 
 export function showInDialog(url: string, title: string, options?: IDialogSettings) {
   if (url === '') {
@@ -163,12 +161,12 @@ export function showInDialog(url: string, title: string, options?: IDialogSettin
 }
 
 export function confirmDialog(msg: string, dialogType?: DialogTypeEnum, callback?: (success: boolean) => void) {
-    const mg =
+  const mg =
     '<p style="padding: 20px;"><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>' +
     msg +
     '</p>';
 
-    let diaSettings: IDialogSettings = null;
+  let diaSettings: IDialogSettings = null;
   if (dialogType === DialogTypeEnum.Bootstrap) {
     diaSettings = getBootstrapDialogSettings();
   } else {
@@ -194,9 +192,8 @@ export function confirmDialog(msg: string, dialogType?: DialogTypeEnum, callback
   showHtmlInDialog(mg, diaSettings);
 }
 
-
 function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettings, myParent?: Window): JQuery {
-    const dialogNum = lastDialogNumber;
+  const dialogNum = lastDialogNumber;
 
   const modalSettings: ModalOption = {
     backdrop: 'static',
@@ -217,7 +214,7 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
   modal.on('hidden', () => {
     $('#globalPopUpDialog_' + dialogNum).remove();
     if (settings.callOnClose && settings.callOnClose !== '') {
-        const fn = myParent[settings.callOnClose as any] as any;
+      const fn = myParent[settings.callOnClose as any] as any;
       if (typeof fn === 'function') {
         fn(settings, dialogReturn);
       }
@@ -229,7 +226,7 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
   return pUp;
 }
 function showHtmlInJQDialog(html: string | JQuery, settings?: IJQuiDialogSettings, myParent?: Window): JQuery {
-    const dialogNum = lastDialogNumber;
+  const dialogNum = lastDialogNumber;
   let DialogSettings = {
     autoOpen: true,
     modal: true,

@@ -120,7 +120,7 @@ export function formatTimeSpan(ts: number) {
 
 export function formatDate(dt: Date) {
   const currDate = dt.getDate();
-  const currMonth = dt.getMonth() + 1; 
+  const currMonth = dt.getMonth() + 1;
   const currYear = dt.getFullYear();
   return '' + currMonth + '/' + currDate + '/' + currYear;
 }

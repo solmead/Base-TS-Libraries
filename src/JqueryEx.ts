@@ -29,7 +29,6 @@ declare global {
   }
 }
 
-
 export interface IAjaxCallOptions {
   beforeCall: (item: JQuery | HTMLElement, form: JQuery | HTMLElement) => boolean;
   afterResponse?: (item: JQuery | HTMLElement, data: any) => any;
@@ -77,7 +76,7 @@ $.extend({
       $.each($currentElem[0].attributes, (index, it) => {
         $newTag.attr(it.name, it.value);
       });
-    } 
+    }
     $currentElem.wrapAll($newTag);
     $currentElem.contents().unwrap();
     // return node; (Error spotted by Frank van Luijn)
@@ -96,7 +95,7 @@ $.fn.extend({
 });
 
 jQuery.fn.extend({
-  disable:  (state: boolean) => {
+  disable: (state: boolean) => {
     const items = $(this);
     return items.each(function () {
       const $this = $(this);
@@ -109,9 +108,9 @@ jQuery.fn.extend({
 });
 
 jQuery.fn.submitUsingAjax = function (options?: IAjaxCallOptions) {
-    const settings = checkOptions(options);
-    const form = this;
-    const clickedItem = this;
+  const settings = checkOptions(options);
+  const form = this;
+  const clickedItem = this;
   if (settings.beforeCall(null, this)) {
     return;
   }
@@ -123,8 +122,8 @@ jQuery.fn.submitUsingAjax = function (options?: IAjaxCallOptions) {
 };
 
 jQuery.fn.onSubmitUseAjax = function (options?: IAjaxCallOptions) {
-    const settings = checkOptions(options);
-    const form = this;
+  const settings = checkOptions(options);
+  const form = this;
 
   $(form)
     .find("[type='submit']")
@@ -153,8 +152,8 @@ jQuery.fn.onSubmitUseAjax = function (options?: IAjaxCallOptions) {
 };
 
 jQuery.fn.onClickAjaxGet = function (options?: IAjaxCallOptions) {
-    const settings = checkOptions(options);
-    const item = this;
+  const settings = checkOptions(options);
+  const item = this;
   $(item).click(function (evt) {
     if (!evt.isDefaultPrevented()) {
       evt.preventDefault();
@@ -171,8 +170,8 @@ jQuery.fn.onClickAjaxGet = function (options?: IAjaxCallOptions) {
 };
 
 jQuery.fn.onClickAjaxPost = function (options?: IAjaxCallOptions) {
-    const settings = checkOptions(options);
-    const item = this;
+  const settings = checkOptions(options);
+  const item = this;
   $(item).click(function (evt) {
     if (!evt.isDefaultPrevented()) {
       evt.preventDefault();
@@ -189,8 +188,8 @@ jQuery.fn.onClickAjaxPost = function (options?: IAjaxCallOptions) {
 };
 
 jQuery.fn.onClickPostAsForm = function (options?: IAjaxCallOptions) {
-    const settings = checkOptions(options);
-    const item = this;
+  const settings = checkOptions(options);
+  const item = this;
   $(item).click(function (evt) {
     if (!evt.isDefaultPrevented()) {
       evt.preventDefault();
@@ -199,7 +198,7 @@ jQuery.fn.onClickPostAsForm = function (options?: IAjaxCallOptions) {
         return;
       }
       const clickUrl = $(clickedItem).attr('href');
-      
+
       const doc: string = "<form action='" + clickUrl + "' method='post'></form>";
 
       const form: JQuery = $(doc).appendTo(document.body);
@@ -207,4 +206,3 @@ jQuery.fn.onClickPostAsForm = function (options?: IAjaxCallOptions) {
     }
   });
 };
-

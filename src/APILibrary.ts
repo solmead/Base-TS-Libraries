@@ -2,7 +2,6 @@
 import * as SiteInfo from './SiteInfo';
 import * as Debug from './Debug';
 
-
 export enum callTypes {
   GET,
   PUT,
@@ -68,7 +67,7 @@ export function apiCall(
   fUrl = fUrl.replaceAll('//', '/').replaceAll(':/', '://');
 
   let pd = true;
-  let sd = sendData; 
+  let sd = sendData;
   let contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
   if (sendData instanceof Blob) {
     contentType = 'application/octet-stream';
@@ -165,7 +164,7 @@ export function getCall(
     url,
     sendData,
     (data, textStatus, request) => {
-        const seq = parseInt(request.getResponseHeader('seq'), 10);
+      const seq = parseInt(request.getResponseHeader('seq'), 10);
       if (successCallback) {
         successCallback(data, seq);
       }
@@ -195,7 +194,7 @@ export function putCall(
     url,
     sendData,
     (data, textStatus, request) => {
-        const seq: number = parseInt(request.getResponseHeader('seq'), 10);
+      const seq: number = parseInt(request.getResponseHeader('seq'), 10);
 
       if (successCallback) {
         successCallback(data, seq);
@@ -226,7 +225,7 @@ export function postCall(
     url,
     sendData,
     (data, textStatus, request) => {
-        const seq = parseInt(request.getResponseHeader('seq'), 10);
+      const seq = parseInt(request.getResponseHeader('seq'), 10);
       if (successCallback) {
         successCallback(data, seq);
       }

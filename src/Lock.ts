@@ -1,6 +1,4 @@
-﻿
-
-export async function WhenTrueAsync(func: () => boolean, maxLockTime: number = 60000): Promise<void> {
+﻿export async function WhenTrueAsync(func: () => boolean, maxLockTime: number = 60000): Promise<void> {
   const p = new Promise<void>((resolve, reject) => {
     const startTime = new Date();
     const check = () => {
@@ -30,9 +28,7 @@ export class MutexLock {
   private locked = false;
   private lastCalled: Date = null;
 
-  constructor(private maxLockTime?: number) {
-    
-  }
+  constructor(private maxLockTime?: number) {}
 
   get isLocked(): boolean {
     let seconds = 0;

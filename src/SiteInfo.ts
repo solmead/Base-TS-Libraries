@@ -1,7 +1,6 @@
 ﻿import * as DateTime from './DateTime';
 import { Queryable } from './LinqToJs';
 
-
 export class SiteInfo {
   public sitepath: string = '/';
   public virtualUrl: string = '';
@@ -85,4 +84,3 @@ export function getFullURL(url: string): string {
 export function redirect(url: string) {
   window.location.href = url;
 }
-

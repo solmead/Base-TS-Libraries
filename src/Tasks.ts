@@ -11,7 +11,6 @@ export class Task<TT> {
   private resolveFunc: (value?: TT | PromiseLike<TT>) => void;
 
   constructor(private func: (cback?: (val?: TT) => void) => void) {
-
     this.promise = new Promise<TT>((resolve) => {
       this.resolveFunc = resolve;
     });
@@ -48,7 +47,7 @@ export interface IDebouncedTask<TT> extends Task<TT> {
 export class RecurringTask {
   private _isRunning: boolean = false;
 
-  private refreshLock: Locking.MutexLock = null; 
+  private refreshLock: Locking.MutexLock = null;
   private async timedCall(): Promise<void> {
     if (this.callback) {
       if (!this.refreshLock.isLocked) {
@@ -71,11 +70,11 @@ export class RecurringTask {
   get isRunning(): boolean {
     return this._isRunning;
   }
-  
+
   setTimeOut = (time: number): void => {
     this.timeout = time;
   };
-  
+
   start = (): void => {
     if (!this.isRunning) {
       this._isRunning = true;
