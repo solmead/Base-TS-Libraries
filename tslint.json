@@ -1,3 +1,8 @@
 {
-    "extends": ["tslint:recommended", "tslint-config-prettier"]
+    "extends": ["tslint:recommended", "tslint-config-prettier"],
+    "rules": {
+        "array-type": [true, "generic"],
+        "no-empty-interface": false,
+        "no-empty": false
+    }
  }

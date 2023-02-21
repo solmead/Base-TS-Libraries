@@ -1,7 +1,6 @@
 ﻿import * as DateTime from './DateTime';
 import { Queryable } from './LinqToJs';
 
-//module SiteInfo {
 
 export class SiteInfo {
   public sitepath: string = '/';
@@ -10,40 +9,40 @@ export class SiteInfo {
   public isCleanHtml: boolean = false;
 
   public constructor() {
-    var scripts = document.getElementsByTagName('script');
-    var lastScript = scripts[scripts.length - 1];
-    var scriptName = lastScript.src;
+    const scripts = document.getElementsByTagName('script');
+    const lastScript = scripts[scripts.length - 1];
+    const scriptName = lastScript.src;
 
-    var subDirs = new Queryable<string>(['/JS/', '/BUNDLES/']);
+    const subDirs = new Queryable<string>(['/JS/', '/BUNDLES/']);
 
-    var indexs = subDirs
+    const indexs = subDirs
       .select((d) => {
         return scriptName.toUpperCase().indexOf(d);
       })
       .where((i) => i > 0);
 
     if (indexs.any()) {
-      var minIdx = indexs.min();
+      const minIdx = indexs.min();
       this.sitepath = scriptName.substring(0, minIdx) + '/';
     }
 
-    var base = window.location.protocol + '//' + window.location.host + '/';
+    const base = window.location.protocol + '//' + window.location.host + '/';
     this.virtualUrl = this.sitepath.replace(base, '');
     this.applicationUrl = base;
-    var t = window.location.pathname + window.location.search;
+    const t = window.location.pathname + window.location.search;
 
     this.isCleanHtml = t.indexOf('Format=CleanHTML') > -1;
   }
 
   getParameterByName = (name: string): string => {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.search);
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(location.search);
     return results == null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   };
 }
 
-export var siteInfo: SiteInfo = new SiteInfo();
+export let siteInfo: SiteInfo = new SiteInfo();
 
 function fixDoubleSlash(path: string): string {
   path = path.replaceAll('//', '/');
@@ -74,8 +73,8 @@ export function getVirtualURL(url: string): string {
 }
 
 export function getFullURL(url: string): string {
-  var cntPiece = 'Cnt=' + DateTime.getTimeCount();
-  if (url.indexOf('?') != -1) {
+  let cntPiece = 'Cnt=' + DateTime.getTimeCount();
+  if (url.indexOf('?') !== -1) {
     cntPiece = '&' + cntPiece;
   } else {
     cntPiece = '?' + cntPiece;
@@ -87,4 +86,3 @@ export function redirect(url: string) {
   window.location.href = url;
 }
 
-//}

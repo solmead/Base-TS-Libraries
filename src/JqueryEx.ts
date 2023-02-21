@@ -29,7 +29,6 @@ declare global {
   }
 }
 
-//module JqueryEx {
 
 export interface IAjaxCallOptions {
   beforeCall: (item: JQuery | HTMLElement, form: JQuery | HTMLElement) => boolean;
@@ -40,17 +39,17 @@ export function createAjaxOptions(
   afterResponse?: (form: JQuery | HTMLElement, data: any) => any,
 ): IAjaxCallOptions {
   return {
-    beforeCall: beforeCall,
-    afterResponse: afterResponse,
+    beforeCall,
+    afterResponse,
   };
 }
 
 function checkOptions(options?: IAjaxCallOptions): IAjaxCallOptions {
-  var defaults: IAjaxCallOptions = {
+  const defaults: IAjaxCallOptions = {
     beforeCall: null,
     afterResponse: null,
   };
-  var settings = $.extend({}, defaults, options) as IAjaxCallOptions;
+  const settings = $.extend({}, defaults, options) as IAjaxCallOptions;
 
   if (!settings.beforeCall) {
     settings.beforeCall = (item: JQuery | HTMLElement): boolean => {
@@ -67,24 +66,18 @@ function checkOptions(options?: IAjaxCallOptions): IAjaxCallOptions {
 }
 
 $.extend({
-  replaceTag: function (
+  replaceTag: (
     currentElem: JQuery<HTMLElement> | HTMLElement | string,
     newTagObj: JQuery<HTMLElement> | HTMLElement | string,
     keepProps: boolean,
-  ) {
-    var $currentElem = $(<any>currentElem);
-    var i,
-      $newTag = $(<any>newTagObj).clone();
+  ) => {
+    const $currentElem = $(currentElem as any);
+    const $newTag = $(newTagObj as any).clone();
     if (keepProps) {
-      //{{{
-      //var newTag = $newTag[0];
-      //newTag.className = currentElem.className;
-      //$.extend(newTag.classList, currentElem.classList);
-      $.each($currentElem[0].attributes, function (index, it) {
+      $.each($currentElem[0].attributes, (index, it) => {
         $newTag.attr(it.name, it.value);
       });
-      //$.extend(newTag.attributes, currentElem.attributes);
-    } //}}}
+    } 
     $currentElem.wrapAll($newTag);
     $currentElem.contents().unwrap();
     // return node; (Error spotted by Frank van Luijn)
@@ -93,21 +86,21 @@ $.extend({
 });
 
 $.fn.extend({
-  replaceTag: function (newTagObj: JQuery<HTMLElement> | HTMLElement | string, keepProps: boolean) {
+  replaceTag: (newTagObj: JQuery<HTMLElement> | HTMLElement | string, keepProps: boolean) => {
     // "return" suggested by ColeLawrence
-    var elem = <JQuery<HTMLElement>>this;
-    return elem.each(function () {
+    const elem = this as JQuery<HTMLElement>;
+    return elem.each(() => {
       jQuery.replaceTag(elem, newTagObj, keepProps);
     });
   },
 });
 
 jQuery.fn.extend({
-  disable: function (state: boolean) {
-    var items = $(this);
+  disable:  (state: boolean) => {
+    const items = $(this);
     return items.each(function () {
-      var $this = $(this);
-      if ($this.is('input, button, textarea, select')) (<any>$this[0]).disabled = state;
+      const $this = $(this);
+      if ($this.is('input, button, textarea, select')) ($this[0] as any).disabled = state;
       else $this.toggleClass('disabled', state);
 
       $(this).prop('disabled', state);
@@ -116,22 +109,22 @@ jQuery.fn.extend({
 });
 
 jQuery.fn.submitUsingAjax = function (options?: IAjaxCallOptions) {
-  var settings = checkOptions(options);
-  var form = this;
-  var clickedItem = this;
+    const settings = checkOptions(options);
+    const form = this;
+    const clickedItem = this;
   if (settings.beforeCall(null, this)) {
     return;
   }
-  var clickUrl = ApiLibrary.addFormatToUrl($(clickedItem).attr('action'));
-  var formData = $(this).serialize();
+  const clickUrl = ApiLibrary.addFormatToUrl($(clickedItem).attr('action'));
+  const formData = $(this).serialize();
   ApiLibrary.postCall(clickUrl, null, formData, (data: any) => {
     settings.afterResponse(clickedItem, data);
   });
 };
 
 jQuery.fn.onSubmitUseAjax = function (options?: IAjaxCallOptions) {
-  var settings = checkOptions(options);
-  var form = this;
+    const settings = checkOptions(options);
+    const form = this;
 
   $(form)
     .find("[type='submit']")
@@ -142,16 +135,15 @@ jQuery.fn.onSubmitUseAjax = function (options?: IAjaxCallOptions) {
 
   $(form).submit(function (evt) {
     evt.preventDefault();
-    var clickedItem = $(this).find('[type=submit][clicked=true]');
-    //var clickedItem = this;
+    const clickedItem = $(this).find('[type=submit][clicked=true]');
 
     if (settings.beforeCall(clickedItem, this)) {
       return;
     }
     $(form).find("input[type='submit'],button[type='submit']").disable(true);
-    var clickUrl = ApiLibrary.addFormatToUrl($(form).attr('action'));
+    const clickUrl = ApiLibrary.addFormatToUrl($(form).attr('action'));
     $(this).append("<input type='hidden' name='" + clickedItem.attr('name') + "' value='" + clickedItem.val() + "'/>");
-    var formData = $(this).serialize();
+    const formData = $(this).serialize();
 
     ApiLibrary.postCall(clickUrl, null, formData, (data: any) => {
       settings.afterResponse(clickedItem, data);
@@ -161,16 +153,16 @@ jQuery.fn.onSubmitUseAjax = function (options?: IAjaxCallOptions) {
 };
 
 jQuery.fn.onClickAjaxGet = function (options?: IAjaxCallOptions) {
-  var settings = checkOptions(options);
-  var item = this;
+    const settings = checkOptions(options);
+    const item = this;
   $(item).click(function (evt) {
     if (!evt.isDefaultPrevented()) {
       evt.preventDefault();
-      var clickedItem = this;
+      const clickedItem = this;
       if (settings.beforeCall(clickedItem, null)) {
         return;
       }
-      var clickUrl = ApiLibrary.addFormatToUrl($(clickedItem).attr('href'));
+      const clickUrl = ApiLibrary.addFormatToUrl($(clickedItem).attr('href'));
       ApiLibrary.getCall(clickUrl, null, (data: any) => {
         settings.afterResponse(clickedItem, data);
       });
@@ -179,16 +171,16 @@ jQuery.fn.onClickAjaxGet = function (options?: IAjaxCallOptions) {
 };
 
 jQuery.fn.onClickAjaxPost = function (options?: IAjaxCallOptions) {
-  var settings = checkOptions(options);
-  var item = this;
+    const settings = checkOptions(options);
+    const item = this;
   $(item).click(function (evt) {
     if (!evt.isDefaultPrevented()) {
       evt.preventDefault();
-      var clickedItem = this;
+      const clickedItem = this;
       if (settings.beforeCall(clickedItem, this)) {
         return;
       }
-      var clickUrl = ApiLibrary.addFormatToUrl($(clickedItem).attr('href'));
+      const clickUrl = ApiLibrary.addFormatToUrl($(clickedItem).attr('href'));
       ApiLibrary.postCall(clickUrl, null, null, (data: any) => {
         settings.afterResponse(this, data);
       });
@@ -197,23 +189,22 @@ jQuery.fn.onClickAjaxPost = function (options?: IAjaxCallOptions) {
 };
 
 jQuery.fn.onClickPostAsForm = function (options?: IAjaxCallOptions) {
-  var settings = checkOptions(options);
-  var item = this;
+    const settings = checkOptions(options);
+    const item = this;
   $(item).click(function (evt) {
     if (!evt.isDefaultPrevented()) {
       evt.preventDefault();
-      var clickedItem = this;
+      const clickedItem = this;
       if (settings.beforeCall(clickedItem, this)) {
         return;
       }
-      var clickUrl = $(clickedItem).attr('href');
-      //ApiLibrary.addFormatToUrl($(clickedItem).attr("href"));
-      var doc: string = "<form action='" + clickUrl + "' method='post'></form>";
+      const clickUrl = $(clickedItem).attr('href');
+      
+      const doc: string = "<form action='" + clickUrl + "' method='post'></form>";
 
-      var form: JQuery = $(doc).appendTo(document.body);
+      const form: JQuery = $(doc).appendTo(document.body);
       $(form).submit();
     }
   });
 };
 
-//}

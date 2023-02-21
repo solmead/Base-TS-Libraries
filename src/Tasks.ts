@@ -1,4 +1,5 @@
-﻿import * as Locking from './Lock';
+﻿/* tslint:disable:max-classes-per-file */
+import * as Locking from './Lock';
 
 export interface IException {
   message: string;
@@ -20,7 +21,7 @@ export class Task<TT> {
         return rFunc();
       };
     } else if (func.length === 0) {
-      var bfunc = this.func;
+      const bfunc = this.func;
       this.func = (rFunc: (val?: TT) => void) => {
         bfunc();
         rFunc();
@@ -87,13 +88,13 @@ export class RecurringTask {
 }
 
 export function runAfterWait(waitTimeMilliSeconds: number): IDebouncedTask<void> {
-  var t = new Task<void>((cback) => {
+  const t = new Task<void>((cback) => {
     cback();
   }) as IDebouncedTask<void>;
 
-  var timer: number = null;
+  let timer: number = null;
 
-  var throttle = (): void => {
+  const throttle = (): void => {
     clearTimeout(timer);
     timer = window.setTimeout(() => {
       t.start();
@@ -111,7 +112,7 @@ export function runAfterWait(waitTimeMilliSeconds: number): IDebouncedTask<void>
 }
 
 export function debounced(): IDebouncedTask<void> {
-  var t = new Task<void>((cback) => {
+  const t = new Task<void>((cback) => {
     cback();
   }) as IDebouncedTask<void>;
 

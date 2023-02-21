@@ -1,10 +1,13 @@
-﻿import * as Tasks from './Tasks';
+﻿/* tslint:disable:max-classes-per-file */
+import * as Tasks from './Tasks';
 
 
 export class EventHandler<T> {
   private onTrigger: Array<(data?: T) => Promise<void>> = [];
 
-  constructor() {}
+  constructor() {
+
+  }
 
   trigger(data?: T): void {
     this.onTrigger.asQueryable().forEach((fn) => {
@@ -15,15 +18,14 @@ export class EventHandler<T> {
   async triggerAsync(data?: T): Promise<void> {
     await Tasks.delay(1);
 
-    for (var a = 0; a < this.onTrigger.length; a++) {
-      var fn = this.onTrigger[a];
+    for (const fn of this.onTrigger) {
       await fn(data);
     }
   }
 
   addListener(callback: (data?: T) => void): void {
-    var f = (data?: T): Promise<void> => {
-      var p = new Promise<void>((resolve, reject) => {
+    const f = (data?: T): Promise<void> => {
+        const p = new Promise<void>((resolve, reject) => {
         callback(data);
         resolve();
       });
@@ -41,7 +43,7 @@ export class EventHandler<T> {
   }
 
   async onOccur(): Promise<T> {
-    var p = new Promise<T>((resolve, reject) => {
+    const p = new Promise<T>((resolve, reject) => {
       this.addListener((data) => {
         resolve(data);
       });
@@ -58,10 +60,10 @@ export class DebouncedEventHandler<T> extends EventHandler<T> {
   }
 
   async triggerAsync(data?: T): Promise<void> {
-    if ((this.lastTime = null)) {
+    if ((this.lastTime == null)) {
       this.lastTime = new Date().addDays(-10);
     }
-    var timeDiff = new Date().getTime() - this.lastTime.getTime();
+    const timeDiff = new Date().getTime() - this.lastTime.getTime();
 
     if (timeDiff > this.resetTimeMilliSeconds) {
       this.lastTime = new Date();
@@ -71,11 +73,11 @@ export class DebouncedEventHandler<T> extends EventHandler<T> {
   }
 
   trigger(data?: T): void {
-    if ((this.lastTime = null)) {
+    if ((this.lastTime == null)) {
       this.lastTime = new Date().addDays(-10);
     }
 
-    var timeDiff = new Date().getTime() - this.lastTime.getTime();
+    const timeDiff = new Date().getTime() - this.lastTime.getTime();
 
     if (timeDiff > this.resetTimeMilliSeconds) {
       this.lastTime = new Date();
@@ -145,4 +147,3 @@ export class OneTimeEventHandler<T> extends EventHandler<T> {
     }
   }
 }
-//}

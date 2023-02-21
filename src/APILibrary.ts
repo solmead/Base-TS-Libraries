@@ -1,10 +1,7 @@
-﻿/// <reference path="../node_modules/@types/jquery/index.d.ts" />
-
-import * as DateTime from './DateTime';
+﻿import * as DateTime from './DateTime';
 import * as SiteInfo from './SiteInfo';
 import * as Debug from './Debug';
 
-//module ApiLibrary {
 
 export enum callTypes {
   GET,
@@ -12,8 +9,7 @@ export enum callTypes {
   POST,
 }
 
-export interface iApiCallError {
-  // jqXHR: JQueryXHR;
+export interface IApiCallError {
   textStatus: string;
   errorThrown: string;
   responseText: string;
@@ -38,11 +34,6 @@ export function addFormatToUrl(url: string): string {
 }
 
 export function addAntiForgeryToken(data: any) {
-  //var token = $('input[name="__RequestVerificationToken"]').val();
-  //if (token != null && token != "") {
-  //    data.__RequestVerificationToken = token;
-  //}
-
   return data;
 }
 
@@ -54,21 +45,21 @@ export function apiCall(
   errorCallback?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any,
   beforeSend?: (jqXHR: JQueryXHR) => any,
 ): void {
-  var cntPiece = 'Cnt=' + DateTime.getTimeCount();
-  if (url.indexOf('?') != -1) {
+  let cntPiece = 'Cnt=' + DateTime.getTimeCount();
+  if (url.indexOf('?') !== -1) {
     cntPiece = '&' + cntPiece;
   } else {
     cntPiece = '?' + cntPiece;
   }
-  var fUrl = url + cntPiece;
+  let fUrl = url + cntPiece;
   if (url.indexOf('://') <= 0) {
-    if (url.indexOf(SiteInfo.virtualUrl()) == 0) {
+    if (url.indexOf(SiteInfo.virtualUrl()) === 0) {
       url = url.replace(SiteInfo.virtualUrl(), '');
     }
     if (url.lastIndexOf('/', 0) === 0) {
       url = url.substring(1);
     }
-    if (url.indexOf(SiteInfo.virtualUrl()) == 0) {
+    if (url.indexOf(SiteInfo.virtualUrl()) === 0) {
       url = url.replace(SiteInfo.virtualUrl(), '');
     }
     fUrl = SiteInfo.getVirtualURL(url) + cntPiece;
@@ -76,14 +67,13 @@ export function apiCall(
 
   fUrl = fUrl.replaceAll('//', '/').replaceAll(':/', '://');
 
-  var pd = true;
-  var sd = sendData; //JSON.stringify(sendData);
-  var contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+  let pd = true;
+  let sd = sendData; 
+  let contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
   if (sendData instanceof Blob) {
     contentType = 'application/octet-stream';
     pd = false;
-    //sd = JSON.stringify(sendData);
-  } else if (typeof sendData == 'object') {
+  } else if (typeof sendData === 'object') {
     contentType = 'application/json; charset=utf-8';
     sd = JSON.stringify(sendData);
   }
@@ -95,12 +85,11 @@ export function apiCall(
       if (beforeSend) {
         beforeSend(request);
       }
-      //request.setRequestHeader("Authority", authorizationToken);
     },
     type: callTypes[type],
     data: sd,
     dataType: 'json',
-    contentType: contentType,
+    contentType,
     success: (data: any, textStatus: string, jqXHR: JQueryXHR) => {
       if (successCallback) {
         successCallback(data, textStatus, jqXHR);
@@ -161,9 +150,6 @@ export function postCallAsync<TT>(url: string, seqNum?: number, sendData?: any):
   });
 }
 
-//export function getCall(url: string,
-//    successCallback?: (data: any) => any,
-//    errorCallback?: (textStatus: string, errorThrown: string) => any) :void;
 export function getCall(
   url: string,
   seqNum?: number,
@@ -179,7 +165,7 @@ export function getCall(
     url,
     sendData,
     (data, textStatus, request) => {
-      var seq = parseInt(request.getResponseHeader('seq'));
+        const seq = parseInt(request.getResponseHeader('seq'), 10);
       if (successCallback) {
         successCallback(data, seq);
       }
@@ -209,7 +195,7 @@ export function putCall(
     url,
     sendData,
     (data, textStatus, request) => {
-      var seq: number = parseInt(request.getResponseHeader('seq'));
+        const seq: number = parseInt(request.getResponseHeader('seq'), 10);
 
       if (successCallback) {
         successCallback(data, seq);
@@ -240,7 +226,7 @@ export function postCall(
     url,
     sendData,
     (data, textStatus, request) => {
-      var seq = parseInt(request.getResponseHeader('seq'));
+        const seq = parseInt(request.getResponseHeader('seq'), 10);
       if (successCallback) {
         successCallback(data, seq);
       }
@@ -252,12 +238,11 @@ export function postCall(
   );
 }
 
-function Error(jqXHR: JQueryXHR, textStatus: string, errorThrown: string): iApiCallError {
+function Error(jqXHR: JQueryXHR, textStatus: string, errorThrown: string): IApiCallError {
   Debug.debugWrite(errorThrown);
 
-  var err = <iApiCallError>{};
+  const err = {} as IApiCallError;
 
-  //err.jqXHR = jqXHR;
   err.errorThrown = errorThrown;
   err.textStatus = textStatus;
   err.responseText = jqXHR.responseText;
@@ -265,5 +250,3 @@ function Error(jqXHR: JQueryXHR, textStatus: string, errorThrown: string): iApiC
 
   return err;
 }
-
-//}
