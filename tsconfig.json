@@ -8,20 +8,20 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "target": "es6",
-    "strict": false,
+    "strict": true,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
     "sourceRoot": "./",
-    "outFile": "./Libs.js",
-    "outDir": "./vuild",
+    //"outFile": "./Libs.js",
+    "outDir": "./lib",
     "lib": [
       "es2017",
       "dom"
     ],
     "typeRoots": [
-      "../../../node_modules/@types"
+      "./node_modules/@types"
     ]
   },
-  "include": [ "./UCIT_Libs.ts" ],
-  "exclude": [ "./WebApi" ]
+  "include": [ "src" ],
+  "exclude": [ "node_modules", "**/__tests__/*" ]
 }
