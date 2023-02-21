@@ -1,3 +1,8 @@
-import { EventHandler } from '../EventHandler';
+import { EventHandler, OneTimeEventHandler } from '../EventHandler';
 
-test('Event Handler', () => {});
+test('Event Handler', () => {
+
+    var ev = new OneTimeEventHandler();
+    
+
+});
