@@ -1,7 +1,6 @@
 ﻿import { ModalOption } from 'bootstrap';
 import * as EventHandler from './EventHandler';
 
-//var Window:any = Window || {};
 
 declare global {
   interface Window {

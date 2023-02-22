@@ -81,8 +81,9 @@ export class Messages {
       const msgTP = DateTime.formatTime(dt);
       const msgPt = item.message;
       const msgElapsed = 'Time Elapsed From Start: ' + DateTime.formatTimeSpan(secondsFromStart);
-      // tslint:disable-next-line:no-console
+      
       if ($) {
+        // tslint:disable-next-line:no-console
         console.log(msgTP + ' ' + msgPt + ' - ' + msgElapsed);
         $(area).append(
           "<li><span class='timePart'>" +
