@@ -1,5 +1,5 @@
-import { EventHandler, OneTimeEventHandler } from '../EventHandler';
+import { EventHandler } from '../Index';
 
 test('Event Handler', () => {
-  var ev = new OneTimeEventHandler();
+  var ev = new EventHandler.OneTimeEventHandler();
 });

@@ -1,5 +1,8 @@
-﻿import * as DateTime from './DateTime.js';
-import { Queryable } from './LinqToJs.js';
+﻿import * as DateTime from './DateTime';
+import { Queryable } from './LinqToJs';
+
+
+var document:Document = document || null as Document;
 
 export class SiteInfo {
   public sitepath: string = '/';
@@ -8,29 +11,31 @@ export class SiteInfo {
   public isCleanHtml: boolean = false;
 
   public constructor() {
-    const scripts = document.getElementsByTagName('script');
-    const lastScript = scripts[scripts.length - 1];
-    const scriptName = lastScript.src;
+    if (document) {
+      const scripts = document.getElementsByTagName('script');
+      const lastScript = scripts[scripts.length - 1];
+      const scriptName = lastScript.src;
 
-    const subDirs = new Queryable<string>(['/JS/', '/BUNDLES/']);
+      const subDirs = new Queryable<string>(['/JS/', '/BUNDLES/']);
 
-    const indexs = subDirs
-      .select((d) => {
-        return scriptName.toUpperCase().indexOf(d);
-      })
-      .where((i) => i > 0);
+      const indexs = subDirs
+        .select((d) => {
+          return scriptName.toUpperCase().indexOf(d);
+        })
+        .where((i) => i > 0);
 
-    if (indexs.any()) {
-      const minIdx = indexs.min();
-      this.sitepath = scriptName.substring(0, minIdx) + '/';
+      if (indexs.any()) {
+        const minIdx = indexs.min();
+        this.sitepath = scriptName.substring(0, minIdx) + '/';
+      }
+
+      const base = window.location.protocol + '//' + window.location.host + '/';
+      this.virtualUrl = this.sitepath.replace(base, '');
+      this.applicationUrl = base;
+      const t = window.location.pathname + window.location.search;
+
+      this.isCleanHtml = t.indexOf('Format=CleanHTML') > -1;
     }
-
-    const base = window.location.protocol + '//' + window.location.host + '/';
-    this.virtualUrl = this.sitepath.replace(base, '');
-    this.applicationUrl = base;
-    const t = window.location.pathname + window.location.search;
-
-    this.isCleanHtml = t.indexOf('Format=CleanHTML') > -1;
   }
 
   getParameterByName = (name: string): string => {

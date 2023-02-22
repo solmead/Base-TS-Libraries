@@ -1,5 +1,7 @@
 ﻿/* tslint:disable:max-classes-per-file */
-import * as Locking from './Lock.js';
+import * as Locking from './Lock';
+
+var $:JQueryStatic = $ || null as JQueryStatic;
 
 export interface IException {
   message: string;
@@ -132,9 +134,13 @@ export function delay(msec: number): Promise<void> {
 
 export function whenReady(): Promise<void> {
   return new Promise<void>((resolve) => {
-    $(() => {
-      resolve();
-    });
+    if ($) {
+        $(() => {
+            resolve();
+        });
+    } else {
+        resolve();
+    }
   });
 }
 

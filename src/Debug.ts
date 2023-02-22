@@ -1,6 +1,9 @@
 ﻿/* tslint:disable:max-classes-per-file */
-import * as Tasks from './Tasks.js';
-import * as DateTime from './DateTime.js';
+import * as Tasks from './Tasks';
+import * as DateTime from './DateTime';
+
+
+var $:JQueryStatic = $ || null as JQueryStatic;
 
 declare global {
   interface String {
@@ -47,16 +50,17 @@ export class Messages {
   private init = async () => {
     await Tasks.whenReady();
     await Tasks.delay(1);
-    this.area = $(this.displayLocation as any);
-    const area = this.area;
-    if (area.length === 0) {
-      $('body').append("<ol class='MessageArea' style='display:block;'></ol>");
-      this.displayLocation = $('.MessageArea');
+    if ($) {
+      this.area = $(this.displayLocation as any);
+      const area = this.area;
+      if (area.length === 0) {
+        $('body').append("<ol class='MessageArea' style='display:block;'></ol>");
+        this.displayLocation = $('.MessageArea');
+      }
+      await Tasks.whenTrue(() => {
+        return DateTime.serverTime.serverTimeLoaded;
+      });
     }
-
-    await Tasks.whenTrue(() => {
-      return DateTime.serverTime.serverTimeLoaded;
-    });
 
     this.isReady = true;
     this.refreshMessages();
@@ -78,22 +82,26 @@ export class Messages {
       const msgPt = item.message;
       const msgElapsed = 'Time Elapsed From Start: ' + DateTime.formatTimeSpan(secondsFromStart);
       // tslint:disable-next-line:no-console
-      console.log(msgTP + ' ' + msgPt + ' - ' + msgElapsed);
-      $(area).append(
-        "<li><span class='timePart'>" +
-          msgTP +
-          "</span> - <span class='messagePart'>" +
-          msgPt +
-          "</span> - <span class='timeElapsedPart'>" +
-          msgElapsed +
-          '</span></li>',
-      );
+      if ($) {
+        console.log(msgTP + ' ' + msgPt + ' - ' + msgElapsed);
+        $(area).append(
+          "<li><span class='timePart'>" +
+            msgTP +
+            "</span> - <span class='messagePart'>" +
+            msgPt +
+            "</span> - <span class='timeElapsedPart'>" +
+            msgElapsed +
+            '</span></li>',
+        );
+      }
     });
     this.messages = new Array<Message>();
     try {
-      const item = $(area).find('li:last-child');
-      const t = item.position().top + item.height() - $(area).height() + $(area).scrollTop();
-      $(area).scrollTop(t);
+      if ($) {
+        const item = $(area).find('li:last-child');
+        const t = item.position().top + item.height() - $(area).height() + $(area).scrollTop();
+        $(area).scrollTop(t);
+      }
     } catch (err) {}
   };
 

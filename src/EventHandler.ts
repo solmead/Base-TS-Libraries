@@ -1,5 +1,5 @@
 ﻿/* tslint:disable:max-classes-per-file */
-import * as Tasks from './Tasks.js';
+import * as Tasks from './Tasks';
 
 export class EventHandler<T> {
   private onTrigger: Array<(data?: T) => Promise<void>> = [];

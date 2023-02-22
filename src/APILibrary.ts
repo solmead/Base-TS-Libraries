@@ -1,6 +1,6 @@
-﻿import * as DateTime from './DateTime.js';
-import * as SiteInfo from './SiteInfo.js';
-import * as Debug from './Debug.js';
+﻿import * as DateTime from './DateTime';
+import * as SiteInfo from './SiteInfo';
+import * as Debug from './Debug';
 
 export enum callTypes {
   GET,
@@ -14,6 +14,9 @@ export interface IApiCallError {
   responseText: string;
   responseObj: any;
 }
+
+
+var $:JQueryStatic = $ || null as JQueryStatic;
 
 export function addDataToUrl(url: string, name: string, value: string): string {
   if (url.indexOf(name + '=') >= 0) {
@@ -76,30 +79,31 @@ export function apiCall(
     contentType = 'application/json; charset=utf-8';
     sd = JSON.stringify(sendData);
   }
-
-  $.ajax({
-    url: fUrl,
-    processData: pd,
-    beforeSend: (request: JQueryXHR) => {
-      if (beforeSend) {
-        beforeSend(request);
-      }
-    },
-    type: callTypes[type],
-    data: sd,
-    dataType: 'json',
-    contentType,
-    success: (data: any, textStatus: string, jqXHR: JQueryXHR) => {
-      if (successCallback) {
-        successCallback(data, textStatus, jqXHR);
-      }
-    },
-    error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => {
-      if (errorCallback) {
-        errorCallback(jqXHR, textStatus, errorThrown);
-      }
-    },
-  });
+    if ($) {
+        $.ajax({
+            url: fUrl,
+            processData: pd,
+            beforeSend: (request: JQueryXHR) => {
+            if (beforeSend) {
+                beforeSend(request);
+            }
+            },
+            type: callTypes[type],
+            data: sd,
+            dataType: 'json',
+            contentType,
+            success: (data: any, textStatus: string, jqXHR: JQueryXHR) => {
+            if (successCallback) {
+                successCallback(data, textStatus, jqXHR);
+            }
+            },
+            error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => {
+            if (errorCallback) {
+                errorCallback(jqXHR, textStatus, errorThrown);
+            }
+            },
+        });
+    }
 }
 
 export function getCallAsync<TT>(url: string, seqNum?: number, sendData: any = null): Promise<TT> {
