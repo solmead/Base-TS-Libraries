@@ -15,8 +15,6 @@ export interface IApiCallError {
   responseObj: any;
 }
 
-
-
 export function addDataToUrl(url: string, name: string, value: string): string {
   if (url.indexOf(name + '=') >= 0) {
     url = url.replace(name + '=', name + 'Old=');
@@ -78,31 +76,31 @@ export function apiCall(
     contentType = 'application/json; charset=utf-8';
     sd = JSON.stringify(sendData);
   }
-    if ($) {
-        $.ajax({
-            url: fUrl,
-            processData: pd,
-            beforeSend: (request: JQueryXHR) => {
-            if (beforeSend) {
-                beforeSend(request);
-            }
-            },
-            type: callTypes[type],
-            data: sd,
-            dataType: 'json',
-            contentType,
-            success: (data: any, textStatus: string, jqXHR: JQueryXHR) => {
-            if (successCallback) {
-                successCallback(data, textStatus, jqXHR);
-            }
-            },
-            error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => {
-            if (errorCallback) {
-                errorCallback(jqXHR, textStatus, errorThrown);
-            }
-            },
-        });
-    }
+  if ($) {
+    $.ajax({
+      url: fUrl,
+      processData: pd,
+      beforeSend: (request: JQueryXHR) => {
+        if (beforeSend) {
+          beforeSend(request);
+        }
+      },
+      type: callTypes[type],
+      data: sd,
+      dataType: 'json',
+      contentType,
+      success: (data: any, textStatus: string, jqXHR: JQueryXHR) => {
+        if (successCallback) {
+          successCallback(data, textStatus, jqXHR);
+        }
+      },
+      error: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => {
+        if (errorCallback) {
+          errorCallback(jqXHR, textStatus, errorThrown);
+        }
+      },
+    });
+  }
 }
 
 export function getCallAsync<TT>(url: string, seqNum?: number, sendData: any = null): Promise<TT> {

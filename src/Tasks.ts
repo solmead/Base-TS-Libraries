@@ -1,7 +1,6 @@
 ﻿/* tslint:disable:max-classes-per-file */
 import * as Locking from './Lock';
 
-
 export interface IException {
   message: string;
 }
@@ -134,11 +133,11 @@ export function delay(msec: number): Promise<void> {
 export function whenReady(): Promise<void> {
   return new Promise<void>((resolve) => {
     if ($) {
-        $(() => {
-            resolve();
-        });
-    } else {
+      $(() => {
         resolve();
+      });
+    } else {
+      resolve();
     }
   });
 }

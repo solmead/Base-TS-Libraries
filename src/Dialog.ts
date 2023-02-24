@@ -1,33 +1,32 @@
 ﻿import { ModalOption } from 'bootstrap';
 import * as EventHandler from './EventHandler';
 
-
 declare global {
   interface Window {
     closeBasePopupDialog: (data?: any) => void;
     showHtmlInDialog(html: string | JQuery, settings: IDialogSettings, parent?: Window): JQuery;
   }
 }
-if (global.Window !=null) {
-    Window.prototype.closeBasePopupDialog = (data?: any): void => {
+if (global.Window != null) {
+  Window.prototype.closeBasePopupDialog = (data?: any): void => {
     if (self !== top) {
-        top.closeBasePopupDialog(data);
-        return;
+      top.closeBasePopupDialog(data);
+      return;
     }
     dialogReturn = data;
     dialogCloseEvents.trigger();
     try {
-        $('#globalPopUpDialog_' + lastDialogNumber).dialog('close');
-        lastDialogNumber = lastDialogNumber - 1;
+      $('#globalPopUpDialog_' + lastDialogNumber).dialog('close');
+      lastDialogNumber = lastDialogNumber - 1;
     } catch (err) {}
     try {
-        $('#globalPopUpDialog_' + lastDialogNumber).modal('hide');
+      $('#globalPopUpDialog_' + lastDialogNumber).modal('hide');
     } catch (err) {}
-    };
+  };
 
-    Window.prototype.showHtmlInDialog = (html: string | JQuery, settings: IDialogSettings, parent?: Window): JQuery => {
-        return showHtmlInDialog(html, settings, parent);
-    };
+  Window.prototype.showHtmlInDialog = (html: string | JQuery, settings: IDialogSettings, parent?: Window): JQuery => {
+    return showHtmlInDialog(html, settings, parent);
+  };
 }
 
 export let lastDialogNumber: number = 1234;

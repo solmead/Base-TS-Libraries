@@ -2,8 +2,6 @@
 import * as Tasks from './Tasks';
 import * as DateTime from './DateTime';
 
-
-
 declare global {
   interface String {
     replaceAll(str1: string, str2: string, ignore?: boolean): string;
@@ -80,7 +78,7 @@ export class Messages {
       const msgTP = DateTime.formatTime(dt);
       const msgPt = item.message;
       const msgElapsed = 'Time Elapsed From Start: ' + DateTime.formatTimeSpan(secondsFromStart);
-      
+
       if ($) {
         // tslint:disable-next-line:no-console
         console.log(msgTP + ' ' + msgPt + ' - ' + msgElapsed);
