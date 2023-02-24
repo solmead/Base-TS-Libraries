@@ -16,7 +16,7 @@ export interface IApiCallError {
 }
 
 
-var $:JQueryStatic = $ || null as JQueryStatic;
+//var $:JQueryStatic = $ || null as JQueryStatic;
 
 export function addDataToUrl(url: string, name: string, value: string): string {
   if (url.indexOf(name + '=') >= 0) {

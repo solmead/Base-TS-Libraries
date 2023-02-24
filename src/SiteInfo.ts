@@ -2,7 +2,7 @@
 import { Queryable } from './LinqToJs';
 
 
-var document:Document = document || null as Document;
+//var document:Document = document || null as Document;
 
 export class SiteInfo {
   public sitepath: string = '/';
@@ -14,7 +14,7 @@ export class SiteInfo {
     if (document) {
       const scripts = document.getElementsByTagName('script');
       const lastScript = scripts[scripts.length - 1];
-      const scriptName = lastScript.src;
+      const scriptName = lastScript?.src ?? "";
 
       const subDirs = new Queryable<string>(['/JS/', '/BUNDLES/']);
 

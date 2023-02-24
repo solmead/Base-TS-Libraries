@@ -1,7 +1,7 @@
 ﻿/* tslint:disable:max-classes-per-file */
 import * as Locking from './Lock';
 
-var $:JQueryStatic = $ || null as JQueryStatic;
+//var $:JQueryStatic = $ || null as JQueryStatic;
 
 export interface IException {
   message: string;

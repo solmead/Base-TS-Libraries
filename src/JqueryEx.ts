@@ -1,7 +1,7 @@
 ﻿import * as ApiLibrary from './ApiLibrary';
 
-var jQuery:JQueryStatic = jQuery || null as JQueryStatic;
-var $:JQueryStatic = $ || null as JQueryStatic;
+//var jQuery:JQueryStatic = jQuery || null as JQueryStatic;
+//var $:JQueryStatic = $ || null as JQueryStatic;
 
 declare global {
   interface JQueryStatic {
