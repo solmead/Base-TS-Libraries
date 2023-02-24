@@ -2,7 +2,6 @@
 import { Queryable } from './LinqToJs';
 
 
-//var document:Document = document || null as Document;
 
 export class SiteInfo {
   public sitepath: string = '/';

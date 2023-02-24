@@ -3,7 +3,6 @@ import * as Tasks from './Tasks';
 import * as DateTime from './DateTime';
 
 
-//var $:JQueryStatic = $ || null as JQueryStatic;
 
 declare global {
   interface String {
