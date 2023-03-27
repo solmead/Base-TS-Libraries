@@ -1,9 +1,8 @@
 export class EnumEx {
     static getNamesAndValues<T extends number>(e: any) {
-        var nms = EnumEx.getNames(e);
-        var mpped = nms.map(n => ({ name: n, value: e[n] as T }));
+        const nms = EnumEx.getNames(e);
+        const mpped = nms.map(n => ({ name: n, value: e[n] as T }));
 
-        var a = 1;
 
         return mpped;
     }
