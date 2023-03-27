@@ -4,6 +4,8 @@ import * as ApiLibrary from './ApiLibrary';
 
 declare global {
   interface Date {
+    formatDate: () => string;
+    formatTime: (hideMs?: boolean) => string;
     addDays(days: number): Date;
   }
 }
@@ -13,6 +15,13 @@ Date.prototype.addDays = function (days: number): Date {
   dat.setDate(dat.getDate() + days);
   return dat;
 };
+
+Date.prototype.formatDate = function (): string {
+  return formatDate(this);
+}
+Date.prototype.formatTime = function (hideMs?: boolean): string  {
+  return formatTime(this, hideMs);
+}
 
 interface ITimeReturn {
   item: ITimeData;
