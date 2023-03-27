@@ -9,4 +9,4 @@ export * as Debug from './Debug';
 export * as ApiLibrary from './ApiLibrary';
 export * as JqueryEx from './JqueryEx';
 export * as SiteInfo from './SiteInfo';
-export {EnumEx} from './EnumEx';
+export { EnumEx } from './EnumEx';
