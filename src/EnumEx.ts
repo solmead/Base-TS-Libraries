@@ -7,15 +7,15 @@ export class EnumEx {
         return mpped;
     }
 
-  static getNames(e: any): string[] {
-        return EnumEx.getObjValues(e).filter(v => typeof v === "string") as string[];
+  static getNames(e: any): Array<string> {
+        return EnumEx.getObjValues(e).filter(v => typeof v === "string") as Array<string>;
     }
 
-    static getValues<T extends number>(e: any):T[] {
-        return EnumEx.getObjValues(e).filter(v => typeof v === "number") as T[];
+    static getValues<T extends number>(e: any):Array<T> {
+        return EnumEx.getObjValues(e).filter(v => typeof v === "number") as Array<T>;
     }
 
-    private static getObjValues(e: any): (number | string)[] {
+    private static getObjValues(e: any): Array<(number | string)> {
         return Object.keys(e).map(k => e[k]);
     }
 }
