@@ -7,7 +7,7 @@ declare global {
     showHtmlInDialog(html: string | JQuery, settings: IDialogSettings, parent?: Window): JQuery;
   }
 }
-if (global.Window != null) {
+if (Window != null) {
   Window.prototype.closeBasePopupDialog = (data?: any): void => {
     if (self !== top) {
       top.closeBasePopupDialog(data);
