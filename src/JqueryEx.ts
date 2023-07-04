@@ -103,8 +103,9 @@ if (jQuery) {
         const $this = $(this);
         if ($this.is('input, button, textarea, select')) ($this[0] as any).disabled = state;
         else $this.toggleClass('disabled', state);
-
-        $(this).prop('disabled', state);
+        try {
+          $(this).prop('disabled', state);
+        } catch {}
       });
     },
   });
