@@ -17,7 +17,7 @@ export class SiteInfo {
       const lastScript = scripts[scripts.length - 1];
       const scriptName = lastScript?.src ?? '';
 
-      const subDirs = new Queryable<string>(['/JS/', '/BUNDLES/']);
+      const subDirs = new Queryable<string>(['/LIB/UC-BASE-LIBARIES/', '/JS/', '/BUNDLES/']);
 
       const indexs = subDirs
         .select((d) => {
