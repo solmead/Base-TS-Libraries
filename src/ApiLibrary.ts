@@ -15,7 +15,6 @@ export interface IApiCallError {
   responseObj: any;
 }
 
-
 export function addDataToUrl(url: string, name: string, value: string): string {
   if (url.indexOf(name + '=') >= 0) {
     url = url.replace(name + '=', name + 'Old=');
