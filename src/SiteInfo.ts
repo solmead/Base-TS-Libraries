@@ -19,7 +19,7 @@ export class SiteInfo {
       this.isCleanHtml = t.indexOf('Format=CleanHTML') > -1;
     }
   }
-/*
+  /*
   private getSitePath():string {
     const myAwesomeScript = document.createElement('script');
     myAwesomeScript.setAttribute('src', './TestSrc.js');
