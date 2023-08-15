@@ -1,6 +1,6 @@
 {
   "name": "uc-base-libraries",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Typescript libraries for UC projects",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
