@@ -9,26 +9,7 @@ export class SiteInfo {
 
   public constructor() {
     if (document) {
-      const myAwesomeScript = document.createElement('script');
-      myAwesomeScript.setAttribute('src', './TestSrc.js');
-      document.head.appendChild(myAwesomeScript);
-
-      const scripts = document.getElementsByTagName('script');
-      const lastScript = scripts[scripts.length - 1];
-      const scriptName = lastScript?.src ?? '';
-
-      const subDirs = new Queryable<string>(['/LIB/UC-BASE-LIBARIES/', '/JS/', '/BUNDLES/']);
-
-      const indexs = subDirs
-        .select((d) => {
-          return scriptName.toUpperCase().indexOf(d);
-        })
-        .where((i) => i > 0);
-
-      if (indexs.any()) {
-        const minIdx = indexs.min();
-        this.sitepath = scriptName.substring(0, minIdx) + '/';
-      }
+      //this.sitepath = this.getSitePath();
 
       const base = window.location.protocol + '//' + window.location.host + '/';
       this.virtualUrl = this.sitepath.replace(base, '');
@@ -38,6 +19,31 @@ export class SiteInfo {
       this.isCleanHtml = t.indexOf('Format=CleanHTML') > -1;
     }
   }
+/*
+  private getSitePath():string {
+    const myAwesomeScript = document.createElement('script');
+    myAwesomeScript.setAttribute('src', './TestSrc.js');
+    document.head.appendChild(myAwesomeScript);
+
+    const scripts = document.getElementsByTagName('script');
+    const lastScript = scripts[scripts.length - 1];
+    const scriptName = lastScript?.src ?? '';
+
+    const subDirs = new Queryable<string>(['/LIB/UC-BASE-LIBARIES/', '/JS/', '/BUNDLES/']);
+
+    const indexs = subDirs
+      .select((d) => {
+        return scriptName.toUpperCase().indexOf(d);
+      })
+      .where((i) => i > 0);
+
+    if (indexs.any()) {
+      const minIdx = indexs.min();
+      return scriptName.substring(0, minIdx) + '/';
+    }
+    return '/';
+  }
+  */
 
   getParameterByName = (name: string): string => {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
