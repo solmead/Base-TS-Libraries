@@ -1,6 +1,6 @@
 ﻿import * as Tasks from './Tasks';
 import * as Debug from './Debug';
-import * as ApiLibrary from './Api1Library';
+import * as ApiLibrary from './ApiLibrary';
 
 declare global {
   interface Date {

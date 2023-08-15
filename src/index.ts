@@ -6,7 +6,7 @@ export * as EventHandler from './EventHandler';
 export * as Dialog from './Dialog';
 export * as DateTime from './DateTime';
 export * as Debug from './Debug';
-export * as ApiLibrary from './Api1Library';
+export * as ApiLibrary from './ApiLibrary';
 export * as JqueryEx from './JqueryEx';
 export * as SiteInfo from './SiteInfo';
 export { EnumEx } from './EnumEx';
