@@ -10,7 +10,7 @@ export class SiteInfo {
   public constructor() {
     if (document) {
       const myAwesomeScript = document.createElement('script');
-      myAwesomeScript.setAttribute('src','./TestSrc.js');
+      myAwesomeScript.setAttribute('src', './TestSrc.js');
       document.head.appendChild(myAwesomeScript);
 
       const scripts = document.getElementsByTagName('script');
