@@ -9,7 +9,7 @@ export class SiteInfo {
 
   public constructor() {
     if (document) {
-      //this.sitepath = this.getSitePath();
+      // this.sitepath = this.getSitePath();
 
       const base = window.location.protocol + '//' + window.location.host + '/';
       this.virtualUrl = this.sitepath.replace(base, '');
