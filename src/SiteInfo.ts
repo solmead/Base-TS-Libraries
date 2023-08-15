@@ -9,9 +9,9 @@ export class SiteInfo {
 
   public constructor() {
     if (document) {
-      var my_awesome_script = document.createElement('script');
-      my_awesome_script.setAttribute('src','./TestSrc.js');
-      document.head.appendChild(my_awesome_script);
+      const myAwesomeScript = document.createElement('script');
+      myAwesomeScript.setAttribute('src','./TestSrc.js');
+      document.head.appendChild(myAwesomeScript);
 
       const scripts = document.getElementsByTagName('script');
       const lastScript = scripts[scripts.length - 1];
