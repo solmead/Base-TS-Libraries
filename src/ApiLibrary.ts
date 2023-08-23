@@ -1,6 +1,7 @@
 ﻿import * as DateTime from './DateTime';
 import * as SiteInfo from './SiteInfo';
 import * as Debug from './Debug';
+import { toDates } from './ts-transformer-dates'
 
 export enum callTypes {
   GET,
@@ -91,6 +92,9 @@ export function apiCall(
       contentType,
       success: (data: any, textStatus: string, jqXHR: JQueryXHR) => {
         if (successCallback) {
+          if (typeof data === "object") {
+            data = toDates(data);
+          }
           successCallback(data, textStatus, jqXHR);
         }
       },
@@ -109,7 +113,7 @@ export function getCallAsync<TT>(url: string, seqNum?: number, sendData: any = n
       url,
       seqNum,
       sendData,
-      (data: any, seq?: number) => {
+      (data: TT, seq?: number) => {
         resolve(data);
       },
       (jqXHR: JQueryXHR, extStatus: string, errorThrown: string) => {
@@ -125,7 +129,7 @@ export function putCallAsync<TT>(url: string, seqNum?: number, sendData?: any): 
       url,
       seqNum,
       sendData,
-      (data: any, seq?: number) => {
+      (data: TT, seq?: number) => {
         resolve(data);
       },
       (jqXHR: JQueryXHR, extStatus: string, errorThrown: string) => {
@@ -140,7 +144,7 @@ export function postCallAsync<TT>(url: string, seqNum?: number, sendData?: any):
       url,
       seqNum,
       sendData,
-      (data: any, seq?: number) => {
+      (data: TT, seq?: number) => {
         resolve(data);
       },
       (jqXHR: JQueryXHR, extStatus: string, errorThrown: string) => {
