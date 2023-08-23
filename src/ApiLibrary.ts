@@ -1,7 +1,7 @@
 ﻿import * as DateTime from './DateTime';
 import * as SiteInfo from './SiteInfo';
 import * as Debug from './Debug';
-import { toDates } from './ts-transformer-dates'
+import { toDates } from './ts-transformer-dates';
 
 export enum callTypes {
   GET,
@@ -92,7 +92,7 @@ export function apiCall(
       contentType,
       success: (data: any, textStatus: string, jqXHR: JQueryXHR) => {
         if (successCallback) {
-          if (typeof data === "object") {
+          if (typeof data === 'object') {
             data = toDates(data);
           }
           successCallback(data, textStatus, jqXHR);
