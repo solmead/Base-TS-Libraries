@@ -3,12 +3,12 @@ type Converter = (v: string | number) => Date;
 export declare function toDates<T extends object>(value: any, converter?: Converter): T;
 
 interface Type {
-    d?: string[];
-    da?: string[];
-    c?: [string, number, boolean?][];
+    d?: Array<string>;
+    da?: Array<string>;
+    c?: Array<[string, number, boolean?]>;
 }
 
-export function applyToDates(value: any, types: Type[], index: number = 0) {
+export function applyToDates(value: any, types: Array<Type>, index: number = 0) {
     const { d, da, c } = types[index];
 
     d?.forEach(dateField => {
@@ -40,12 +40,12 @@ export function applyToDates(value: any, types: Type[], index: number = 0) {
     return value;
 }
 
-export function toDatesByArray(value: any, paths: string[][], converter: Converter = v => new Date(v)): any {
+export function toDatesByArray(value: any, paths: Array<Array<string>>, converter: Converter = v => new Date(v)): any {
     paths.forEach(path => convertPath(value, path, converter));
     return value;
 }
 
-function convertPath(contextValue: any, path: string[], converter: Converter) {
+function convertPath(contextValue: any, path: Array<string>, converter: Converter) {
     let i = 0;
     let parent = null;
     let obj = contextValue;
