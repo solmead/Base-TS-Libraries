@@ -1,5 +1,4 @@
-﻿
-export * as LinqToJs from './LinqToJs';
+﻿export * as LinqToJs from './LinqToJs';
 export * as Locking from './Lock';
 export * as Tasks from './Tasks';
 export * as EventHandler from './EventHandler';
