@@ -57,9 +57,10 @@ export interface IDialogSettings {
 }
 
 export interface IBootDialogSettings extends IDialogSettings {
-  title?: string;
-  item?: JQuery;
+  title?: JQuery;
+  //item?: JQuery;
   settings?: ModalOption;
+  footer?: JQuery
 }
 
 export interface IJQuiDialogSettings extends IDialogSettings {
@@ -203,15 +204,48 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
     show: true,
   };
 
+  const mSettings = $.extend(true, {}, modalSettings, settings.settings);
+
   $(document.body).append("<div id='globalPopUpDialog_" + dialogNum + "'></div>");
 
   const pUp = $('#globalPopUpDialog_' + dialogNum);
-  const ht = $(html as any);
-  const url = ht.attr('src');
-  ht.attr('src', 'about:blank');
+
+  let ht = $(html as any);
+
+  if (settings?.title != null || settings?.footer != null) {
+    var body = ht;
+    var baseHtml = `<div class="modal" tabindex="-1">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                          </div>
+                          <div class="modal-body">
+                          </div>
+                          <div class="modal-footer">
+                          </div>
+                        </div>
+                      </div>
+                    </div>`;
+    ht = $(baseHtml);
+    ht.find(".modal-header").append(settings.title);
+    ht.find(".modal-body").append(body);
+    ht.find(".modal-footer").append(settings.footer);
+
+      
+  } 
+
+  var iframe = pUp.find('iframe');
+
+
+
+  const url = iframe.attr('src');
+  if (url!=null && url!="") {
+    iframe.attr('src', 'about:blank');
+  }
+
   pUp.append(ht);
 
-  const modal = $(pUp).modal(modalSettings);
+  const modal = $(pUp).modal(mSettings);
 
   modal.on('hidden', () => {
     $('#globalPopUpDialog_' + dialogNum).remove();
@@ -221,10 +255,13 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
         fn(settings, dialogReturn);
       }
     }
+    if (settings.onComplete != null) {
+      settings.onComplete();
+    }
     dialogReturn = null;
   });
 
-  pUp.find('iframe').attr('src', url);
+  iframe.attr('src', url);
   return pUp;
 }
 function showHtmlInJQDialog(html: string | JQuery, settings?: IJQuiDialogSettings, myParent?: Window): JQuery {
@@ -242,6 +279,9 @@ function showHtmlInJQDialog(html: string | JQuery, settings?: IJQuiDialogSetting
         if (typeof fn === 'function') {
           fn(settings, dialogReturn);
         }
+      }
+      if (settings.onComplete != null) {
+        settings.onComplete();
       }
       dialogReturn = null;
     },
