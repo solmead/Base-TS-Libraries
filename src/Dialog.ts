@@ -236,12 +236,12 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
       
   } 
 
-  var iframe = pUp.find('iframe');
+  const iframe = pUp.find('iframe');
 
 
 
   const url = iframe.attr('src');
-  if (url!=null && url!="") {
+  if (url!==null && url!=="") {
     iframe.attr('src', 'about:blank');
   }
 
