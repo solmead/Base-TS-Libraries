@@ -60,7 +60,7 @@ export interface IBootDialogSettings extends IDialogSettings {
   title?: JQuery;
   // item?: JQuery;
   settings?: ModalOption;
-  footer?: JQuery
+  footer?: JQuery;
 }
 
 export interface IJQuiDialogSettings extends IDialogSettings {
@@ -94,7 +94,6 @@ export function getBootstrapDialogSettings(
     // item: null,
     settings,
     footer: null,
-
   };
 }
 export function getJqueryUiDialogSettings(
@@ -229,19 +228,15 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
                       </div>
                     </div>`;
     ht = $(baseHtml);
-    ht.find(".modal-header").append(settings.title);
-    ht.find(".modal-body").append(body);
-    ht.find(".modal-footer").append(settings.footer);
-
-      
-  } 
+    ht.find('.modal-header').append(settings.title);
+    ht.find('.modal-body').append(body);
+    ht.find('.modal-footer').append(settings.footer);
+  }
 
   const iframe = pUp.find('iframe');
 
-
-
   const url = iframe.attr('src');
-  if (url!==null && url!=="") {
+  if (url !== null && url !== '') {
     iframe.attr('src', 'about:blank');
   }
 
