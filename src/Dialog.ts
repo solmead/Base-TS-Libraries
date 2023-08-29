@@ -58,7 +58,7 @@ export interface IDialogSettings {
 
 export interface IBootDialogSettings extends IDialogSettings {
   title?: JQuery;
-  //item?: JQuery;
+  // item?: JQuery;
   settings?: ModalOption;
   footer?: JQuery
 }
@@ -91,8 +91,10 @@ export function getBootstrapDialogSettings(
     callOnClose,
     onComplete,
     title: null,
-    item: null,
+    // item: null,
     settings,
+    footer: null,
+
   };
 }
 export function getJqueryUiDialogSettings(
@@ -212,9 +214,9 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
 
   let ht = $(html as any);
 
-  if (settings?.title != null || settings?.footer != null) {
-    var body = ht;
-    var baseHtml = `<div class="modal" tabindex="-1">
+  if (settings?.title !== null || settings?.footer !== null) {
+    const body = ht;
+    const baseHtml = `<div class="modal" tabindex="-1">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
