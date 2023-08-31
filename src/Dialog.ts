@@ -1,10 +1,4 @@
-﻿/// <reference path="../../../node_modules/@types/jquery/index.d.ts" />
-/// <reference path="../../../node_modules/@types/jqueryui/index.d.ts" />
-/// <reference path="../../../node_modules/@types/jquery.blockui/index.d.ts" />
-/// <reference path="../../../node_modules/@types/bootstrap/index.d.ts" />
-
-
-import { ModalOption } from 'bootstrap';
+﻿import { ModalOption } from 'bootstrap';
 import * as EventHandler from './EventHandler';
 
 declare global {
@@ -246,7 +240,7 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
 
     pUp.append(ht);
 
-    //const myModal = new bootstrap.Modal(pUp[0], mSettings)
+    // const myModal = new bootstrap.Modal(pUp[0], mSettings)
     const modal = $(pUp).modal(mSettings);
     modal.modal("show");
 

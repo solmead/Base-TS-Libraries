@@ -121,7 +121,7 @@ export class Queryable<T> {
   sum = (func?: (obj: T) => number): number => {
     if (!func) {
       func = (obj: T): number => {
-        return (<any>obj) as number;
+        return (obj) as number;
       };
     }
     let cnt: number = 0;
@@ -133,7 +133,7 @@ export class Queryable<T> {
   max = (func?: (obj: T) => number): number => {
     if (!func) {
       func = (obj: T): number => {
-          return (<any>obj) as number;
+          return (obj) as number;
       };
     }
     let mx: number = func(this.first());
@@ -148,7 +148,7 @@ export class Queryable<T> {
   min = (func?: (obj: T) => number): number => {
     if (!func) {
       func = (obj: T): number => {
-          return (<any>obj) as number;
+          return (obj) as number;
       };
     }
     let mx: number = func(this.first());

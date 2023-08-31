@@ -93,7 +93,7 @@ export function apiCall(
             type: callTypes[type],
             data: sd,
             dataType: 'json',
-            contentType: contentType,
+            contentType,
             xhrFields: {
                 withCredentials: true
             },
