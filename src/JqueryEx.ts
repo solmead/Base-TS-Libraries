@@ -97,14 +97,14 @@ if (jQuery) {
     });
   }
   jQuery.fn.extend({
-    disable: function  (state: boolean) {
+    disable: function (state: boolean) {
       const items = $(this);
-      return items.each((i, it)=> {
+      return items.each((i, it) => {
         const $this = $(it);
         if ($this.is('input, button, textarea, select')) ($this[0] as any).disabled = state;
         else $this.toggleClass('disabled', state);
         try {
-            $this.prop('disabled', state);
+          $this.prop('disabled', state);
         } catch {}
       });
     },
