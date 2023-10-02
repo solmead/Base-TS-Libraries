@@ -207,7 +207,7 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
 
   const mSettings = $.extend(true, {}, modalSettings, settings.settings);
 
-  var dialogContent = `<div id='globalPopUpDialog_` + dialogNum + `
+  const dialogContent = `<div id='globalPopUpDialog_` + dialogNum + `
                             class='modal fade' tabindex='-1' aria-labelledby='' aria-hidden='true'>
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                               <div class="modal-content">
