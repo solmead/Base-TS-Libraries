@@ -207,30 +207,34 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
 
   const mSettings = $.extend(true, {}, modalSettings, settings.settings);
 
-  $(document.body).append(
-    "<div id='globalPopUpDialog_" +
-      dialogNum +
-      "' class='modal fade' tabindex='-1' aria-labelledby='' aria-hidden='true'></div>",
-  );
+  var dialogContent = `<div id='globalPopUpDialog_` + dialogNum + `
+                            class='modal fade' tabindex='-1' aria-labelledby='' aria-hidden='true'>
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                              <div class="modal-content">
+                              </div>
+                            </div>
+                       </div>`;
+
+
+  $(document.body).append(dialogContent);
 
   const pUp = $('#globalPopUpDialog_' + dialogNum);
+  const contArea = pUp.find(".modal-content");
 
   let ht = $(html as any);
 
   if (settings?.title !== null || settings?.footer !== null) {
     const body = ht;
-    const baseHtml = `<div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
+    const baseHtml = `<div class="modal-header">
                           </div>
                           <div class="modal-body">
                           </div>
                           <div class="modal-footer">
-                          </div>
-                        </div>
-                      </div>`;
+                          </div>`;
     ht = $(baseHtml);
-    ht.find('.modal-header').append(settings.title);
+    ht.find('.modal-header').append(settings.title).append(`<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>`);
     ht.find('.modal-body').append(body);
     ht.find('.modal-footer').append(settings.footer);
   }
@@ -242,7 +246,7 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
     iframe.attr('src', 'about:blank');
   }
 
-  pUp.append(ht);
+  contArea.append(ht);
 
   // const myModal = new bootstrap.Modal(pUp[0], mSettings)
   const modal = $(pUp).modal(mSettings);
