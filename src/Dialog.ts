@@ -34,9 +34,9 @@ if (Window != null) {
             return;
         }
 
-        var dlg = $('#globalPopUpDialog_' + lastDialogNumber);
+        const dlg = $('#globalPopUpDialog_' + lastDialogNumber);
 
-        var iFrame = dlg.find("iframe");
+        const iFrame = dlg.find("iframe");
         iFrame.height(height);
 
 
