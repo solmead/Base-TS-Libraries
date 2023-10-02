@@ -207,7 +207,10 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
 
   const mSettings = $.extend(true, {}, modalSettings, settings.settings);
 
-  const dialogContent = `<div id='globalPopUpDialog_` + dialogNum + `
+  const dialogContent =
+    `<div id='globalPopUpDialog_` +
+    dialogNum +
+    `
                             class='modal fade' tabindex='-1' aria-labelledby='' aria-hidden='true'>
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                               <div class="modal-content">
@@ -215,11 +218,10 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
                             </div>
                        </div>`;
 
-
   $(document.body).append(dialogContent);
 
   const pUp = $('#globalPopUpDialog_' + dialogNum);
-  const contArea = pUp.find(".modal-content");
+  const contArea = pUp.find('.modal-content');
 
   let ht = $(html as any);
 
@@ -232,7 +234,8 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
                           <div class="modal-footer">
                           </div>`;
     ht = $(baseHtml);
-    ht.find('.modal-header').append(settings.title).append(`<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    ht.find('.modal-header').append(settings.title)
+      .append(`<button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>`);
     ht.find('.modal-body').append(body);
