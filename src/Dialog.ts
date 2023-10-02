@@ -3,7 +3,8 @@ import * as EventHandler from './EventHandler';
 
 declare global {
   interface Window {
-    closeBasePopupDialog: (data?: any) => void;
+      closeBasePopupDialog: (data?: any) => void;
+      changeDialogIFrameHeight: (height: number) => void;
     showHtmlInDialog(html: string | JQuery, settings: IDialogSettings, parent?: Window): JQuery;
   }
 }
@@ -27,11 +28,35 @@ if (Window != null) {
   Window.prototype.showHtmlInDialog = (html: string | JQuery, settings: IDialogSettings, parent?: Window): JQuery => {
     return showHtmlInDialog(html, settings, parent);
   };
+    Window.prototype.changeDialogIFrameHeight = (height: number): void => {
+        if (self !== top) {
+            top.changeDialogIFrameHeight(height);
+            return;
+        }
+
+        var dlg = $('#globalPopUpDialog_' + lastDialogNumber);
+
+        var iFrame = dlg.find("iframe");
+        iFrame.height(height);
+
+
+        try {
+            dlg.modal('handleUpdate')
+        } catch (err) { }
+
+    };
+
 }
 
 export let lastDialogNumber: number = 1234;
 export let dialogReturn: any = null;
 export const dialogCloseEvents = new EventHandler.EventHandler<any>();
+
+
+export function changeDialogIFrameHeight(height: number) {
+    window.changeDialogIFrameHeight(height);
+}
+
 
 export function resetPage() {
   setTimeout(() => {
@@ -208,15 +233,12 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
   const mSettings = $.extend(true, {}, modalSettings, settings.settings);
 
   const dialogContent =
-    `<div id='globalPopUpDialog_` +
-    dialogNum +
-    `
-                            class='modal fade' tabindex='-1' aria-labelledby='' aria-hidden='true'>
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                              <div class="modal-content">
-                              </div>
-                            </div>
-                       </div>`;
+    `<div id='globalPopUpDialog_` + dialogNum + `' class='modal fade' tabindex='-1' aria-labelledby='' aria-hidden='true'>
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>`;
 
   $(document.body).append(dialogContent);
 
