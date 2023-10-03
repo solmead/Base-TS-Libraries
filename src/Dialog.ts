@@ -29,14 +29,22 @@ if (Window != null) {
     return showHtmlInDialog(html, settings, parent);
   };
   Window.prototype.changeDialogIFrameHeight = (height: number): void => {
+    console.log('changeDialogIFrameHeight called');
     if (self !== top) {
+      console.log('changeDialogIFrameHeight not top, calling top.changeDialogIFrameHeight');
       top.changeDialogIFrameHeight(height);
       return;
     }
 
     const dlg = $('#globalPopUpDialog_' + lastDialogNumber);
-
+    if (dlg.length==0) {
+      console.log('changeDialogIFrameHeight dlg ' + lastDialogNumber + ' not found');
+    }
     const iFrame = dlg.find('iframe');
+    if (iFrame.length==0) {
+      console.log('changeDialogIFrameHeight iFrame in dlg ' + lastDialogNumber + ' not found');
+    }
+    console.log('changeDialogIFrameHeight height ' + height + '');
     iFrame.height(height);
 
     try {
