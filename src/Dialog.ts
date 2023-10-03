@@ -29,8 +29,10 @@ if (Window != null) {
     return showHtmlInDialog(html, settings, parent);
   };
   Window.prototype.changeDialogIFrameHeight = (height: number): void => {
+    // tslint:disable-next-line:no-console
     console.log('changeDialogIFrameHeight called');
     if (self !== top) {
+      // tslint:disable-next-line:no-console
       console.log('changeDialogIFrameHeight not top, calling top.changeDialogIFrameHeight');
       top.changeDialogIFrameHeight(height);
       return;
@@ -38,12 +40,15 @@ if (Window != null) {
 
     const dlg = $('#globalPopUpDialog_' + lastDialogNumber);
     if (dlg.length==0) {
+      // tslint:disable-next-line:no-console
       console.log('changeDialogIFrameHeight dlg ' + lastDialogNumber + ' not found');
     }
     const iFrame = dlg.find('iframe');
     if (iFrame.length==0) {
+      // tslint:disable-next-line:no-console
       console.log('changeDialogIFrameHeight iFrame in dlg ' + lastDialogNumber + ' not found');
     }
+    // tslint:disable-next-line:no-console
     console.log('changeDialogIFrameHeight height ' + height + '');
     iFrame.height(height);
 
