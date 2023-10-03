@@ -1,5 +1,13 @@
 ﻿export async function WhenTrueAsync(func: () => boolean, maxLockTime: number = 60000): Promise<void> {
   const p = new Promise<void>((resolve, reject) => {
+    if (func) {
+      const t = func();
+      if (t) {
+        resolve();
+        return;
+      }
+    }
+    
     const startTime = new Date();
     const check = () => {
       if (func) {
