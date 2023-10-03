@@ -39,12 +39,12 @@ if (Window != null) {
     }
 
     const dlg = $('#globalPopUpDialog_' + lastDialogNumber);
-    if (dlg.length===0) {
+    if (dlg.length === 0) {
       // tslint:disable-next-line:no-console
       console.log('changeDialogIFrameHeight dlg ' + lastDialogNumber + ' not found');
     }
     const iFrame = dlg.find('iframe');
-    if (iFrame.length===0) {
+    if (iFrame.length === 0) {
       // tslint:disable-next-line:no-console
       console.log('changeDialogIFrameHeight iFrame in dlg ' + lastDialogNumber + ' not found');
     }
