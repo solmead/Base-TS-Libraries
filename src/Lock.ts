@@ -7,7 +7,7 @@
         return;
       }
     }
-    
+
     const startTime = new Date();
     const check = () => {
       if (func) {
