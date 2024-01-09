@@ -50,6 +50,13 @@ if (Window != null) {
     }
     // tslint:disable-next-line:no-console
     console.log('changeDialogIFrameHeight height ' + height + '');
+
+    if (height<50) {
+      height = 200;
+
+      console.log('changeDialogIFrameHeight adjusted height to ' + height + '');
+    }
+
     iFrame.height(height);
 
     try {
