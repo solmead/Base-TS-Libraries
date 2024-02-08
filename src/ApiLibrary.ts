@@ -6,6 +6,7 @@ export enum callTypes {
   GET,
   PUT,
   POST,
+  DELETE
 }
 
 export interface IApiCallError {
@@ -156,6 +157,21 @@ export function postCallAsync<TT>(url: string, seqNum?: number, sendData?: any):
     );
   });
 }
+export function deleteCallAsync<TT>(url: string, seqNum?: number, sendData?: any): Promise<TT> {
+  return new Promise<TT>((resolve, reject) => {
+    deleteCall(
+      url,
+      seqNum,
+      sendData,
+      (data: TT, seq?: number) => {
+        resolve(data);
+      },
+      (jqXHR: JQueryXHR, extStatus: string, errorThrown: string) => {
+        reject(Error(jqXHR, extStatus, errorThrown));
+      },
+    );
+  });
+}
 
 export function getCall(
   url: string,
@@ -244,6 +260,37 @@ export function postCall(
     },
   );
 }
+
+export function deleteCall(
+  url: string,
+  seqNum?: number,
+  sendData?: any,
+  successCallback?: (data: any, seq?: number) => any,
+  errorCallback?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any,
+) {
+  if (!seqNum) {
+    seqNum = DateTime.getTimeCount();
+  }
+  sendData = sendData || {};
+  addAntiForgeryToken(sendData);
+
+  apiCall(
+    callTypes.DELETE,
+    url,
+    sendData,
+    (data, textStatus, request) => {
+      const seq = parseInt(request.getResponseHeader('seq'), 10);
+      if (successCallback) {
+        successCallback(data, seq);
+      }
+    },
+    errorCallback,
+    (request) => {
+      request.setRequestHeader('seq', '' + seqNum);
+    },
+  );
+}
+
 
 function Error(jqXHR: JQueryXHR, textStatus: string, errorThrown: string): IApiCallError {
   Debug.debugWrite(errorThrown);
