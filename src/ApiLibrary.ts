@@ -6,7 +6,7 @@ export enum callTypes {
   GET,
   PUT,
   POST,
-  DELETE
+  DELETE,
 }
 
 export interface IApiCallError {
@@ -290,7 +290,6 @@ export function deleteCall(
     },
   );
 }
-
 
 function Error(jqXHR: JQueryXHR, textStatus: string, errorThrown: string): IApiCallError {
   Debug.debugWrite(errorThrown);
