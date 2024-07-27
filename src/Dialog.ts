@@ -215,7 +215,7 @@ export function showInDialog(url: string, title: string, options?: IDialogSettin
   );
 }
 
-export function confirmDialogAsync(msg: string, dialogType?: DialogTypeEnum): Promise<boolean> {
+export function confirmDialogAsync(msg: string, dialogType: DialogTypeEnum = DialogTypeEnum.Bootstrap): Promise<boolean> {
   return new Promise<boolean>((resolve) => {
     confirmDialog(msg, dialogType, (success: boolean): void => {
       resolve(success);
@@ -223,7 +223,7 @@ export function confirmDialogAsync(msg: string, dialogType?: DialogTypeEnum): Pr
   });
 }
 
-export function confirmDialog(msg: string, dialogType?: DialogTypeEnum, callback?: (success: boolean) => void): JQuery {
+export function confirmDialog(msg: string, dialogType: DialogTypeEnum = DialogTypeEnum.Bootstrap, callback?: (success: boolean) => void): JQuery {
   const mg =
     '<p style="padding: 20px;"><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>' +
     msg +
