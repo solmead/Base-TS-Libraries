@@ -128,13 +128,12 @@ export function getBootstrapDialogSettings(
   footer?: string | JQuery,
 ): IBootDialogSettings {
   if (title != null && (typeof title === 'string' || title instanceof String)) {
-    title = $("<span>" + title + "</span>");
+    title = $('<span>' + title + '</span>');
   }
 
   if (footer != null && (typeof footer === 'string' || footer instanceof String)) {
-    footer = $("<span>" + footer + "</span>");
+    footer = $('<span>' + footer + '</span>');
   }
-
 
   return {
     dialogType: DialogTypeEnum.Bootstrap,
@@ -319,17 +318,16 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
     const footerArea = $(`<div class="modal-footer">
       </div>`);
 
-      headerArea.append(settings.title)
-          .append(`<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    headerArea.append(settings.title)
+      .append(`<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button>`);
-  // bodyArea.append(body);
+    // bodyArea.append(body);
     footerArea.append(settings.footer);
 
     contArea.append(headerArea);
     contArea.append(bodyArea);
     contArea.append(footerArea);
-
 
     contArea = bodyArea;
   } else {
