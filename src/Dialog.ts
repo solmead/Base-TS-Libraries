@@ -127,16 +127,25 @@ export function getBootstrapDialogSettings(
   title?: string | JQuery,
   footer?: string | JQuery,
 ): IBootDialogSettings {
+  if (title != null && (typeof title === 'string' || title instanceof String)) {
+    title = $("<span>" + title + "</span>");
+  }
+
+  if (footer != null && (typeof footer === 'string' || footer instanceof String)) {
+    footer = $("<span>" + footer + "</span>");
+  }
+
+
   return {
     dialogType: DialogTypeEnum.Bootstrap,
     width: null,
     height: null,
     callOnClose,
     onComplete,
-    title: title != null ? $(title as any) : null,
+    title: title as JQuery,
     // item: null,
     settings,
-    footer: footer != null ? $(footer as any) : null,
+    footer: footer as JQuery,
   };
 }
 export function getJqueryUiDialogSettings(
@@ -226,7 +235,7 @@ export function confirmDialog(msg: string, dialogType?: DialogTypeEnum, callback
     let callReturned = false;
 
     const buttons = $(`<div>
-      <button type="button" class="btn btn-primary">Ok/button>
+      <button type="button" class="btn btn-primary">Ok</button>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>`);
 
@@ -241,7 +250,7 @@ export function confirmDialog(msg: string, dialogType?: DialogTypeEnum, callback
       'Confirm',
       buttons,
     );
-    const okBtn = buttons.find('btn-primary');
+    const okBtn = buttons.find('.btn-primary');
     okBtn.on('click', () => {
       callReturned = true;
       if (callback) {
@@ -298,29 +307,35 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
   $(document.body).append(dialogContent);
 
   const pUp = $('#globalPopUpDialog_' + dialogNum);
-  const contArea = pUp.find('.modal-content');
+  let contArea = pUp.find('.modal-content');
 
   let ht = $(html as any);
 
   if (settings?.title !== null || settings?.footer !== null) {
-    const body = ht;
-    const baseHtml = `<div class="modal-header">
-                          </div>
-                          <div class="modal-body">
-                          </div>
-                          <div class="modal-footer">
-                          </div>`;
-    ht = $(baseHtml);
-    ht.find('.modal-header').append(settings.title)
-      .append(`<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>`);
-    ht.find('.modal-body').append(body);
-    ht.find('.modal-footer').append(settings.footer);
+    const headerArea = $(`<div class="modal-header">
+      </div>`);
+    const bodyArea = $(`<div class="modal-body">
+      </div>`);
+    const footerArea = $(`<div class="modal-footer">
+      </div>`);
+
+      headerArea.append(settings.title)
+          .append(`<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>`);
+  //bodyArea.append(body);
+    footerArea.append(settings.footer);
+
+    contArea.append(headerArea);
+    contArea.append(bodyArea);
+    contArea.append(footerArea);
+
+
+    contArea = bodyArea;
   } else {
   }
 
-  const iframe = pUp.find('iframe');
+  const iframe = ht.find('iframe');
 
   const url = iframe.attr('src');
   if (url !== null && url !== '' && url !== undefined) {
