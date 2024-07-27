@@ -124,8 +124,8 @@ export function getBootstrapDialogSettings(
   settings?: ModalOption,
   callOnClose?: string,
   onComplete?: () => void,
-  title?:string | JQuery,
-  footer?:string | JQuery
+  title?: string | JQuery,
+  footer?: string | JQuery,
 ): IBootDialogSettings {
   return {
     dialogType: DialogTypeEnum.Bootstrap,
@@ -133,10 +133,10 @@ export function getBootstrapDialogSettings(
     height: null,
     callOnClose,
     onComplete,
-    title: (title!=null ? $(<any>title) : null),
+    title: title != null ? $(title as any) : null,
     // item: null,
     settings,
-    footer: (footer!=null ? $(<any>footer) : null),
+    footer: footer != null ? $(footer as any) : null,
   };
 }
 export function getJqueryUiDialogSettings(
@@ -207,9 +207,9 @@ export function showInDialog(url: string, title: string, options?: IDialogSettin
   );
 }
 
-export function confirmDialogAsync(msg: string, dialogType?: DialogTypeEnum):Promise<boolean> {
+export function confirmDialogAsync(msg: string, dialogType?: DialogTypeEnum): Promise<boolean> {
   return new Promise<boolean>((resolve) => {
-    confirmDialog(msg, dialogType, (success: boolean):void=>{
+    confirmDialog(msg, dialogType, (success: boolean): void => {
       resolve(success);
     });
   });
@@ -223,20 +223,26 @@ export function confirmDialog(msg: string, dialogType?: DialogTypeEnum, callback
 
   let diaSettings: IDialogSettings = null;
   if (dialogType === DialogTypeEnum.Bootstrap) {
-    var callReturned = false;
+    let callReturned = false;
 
-    var buttons = $(`<div>
+    const buttons = $(`<div>
       <button type="button" class="btn btn-primary">Ok/button>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>`);
 
-    var bootSettings = getBootstrapDialogSettings(null, null, ()=>{
-      if (callback && !callReturned)  {
-        callback(false);
-      }
-    }, "Confirm", buttons);
-    var okBtn = buttons.find("btn-primary");
-    okBtn.on("click", ()=>{
+    const bootSettings = getBootstrapDialogSettings(
+      null,
+      null,
+      () => {
+        if (callback && !callReturned) {
+          callback(false);
+        }
+      },
+      'Confirm',
+      buttons,
+    );
+    const okBtn = buttons.find('btn-primary');
+    okBtn.on('click', () => {
       callReturned = true;
       if (callback) {
         callback(true);
@@ -312,7 +318,6 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
     ht.find('.modal-body').append(body);
     ht.find('.modal-footer').append(settings.footer);
   } else {
-
   }
 
   const iframe = pUp.find('iframe');
