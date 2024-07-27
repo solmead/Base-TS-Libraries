@@ -124,6 +124,8 @@ export function getBootstrapDialogSettings(
   settings?: ModalOption,
   callOnClose?: string,
   onComplete?: () => void,
+  title?:string | JQuery,
+  footer?:string | JQuery
 ): IBootDialogSettings {
   return {
     dialogType: DialogTypeEnum.Bootstrap,
@@ -131,10 +133,10 @@ export function getBootstrapDialogSettings(
     height: null,
     callOnClose,
     onComplete,
-    title: null,
+    title: (title!=null ? $(<any>title) : null),
     // item: null,
     settings,
-    footer: null,
+    footer: (footer!=null ? $(<any>footer) : null),
   };
 }
 export function getJqueryUiDialogSettings(
@@ -205,6 +207,14 @@ export function showInDialog(url: string, title: string, options?: IDialogSettin
   );
 }
 
+export function confirmDialogAsync(msg: string, dialogType?: DialogTypeEnum):Promise<boolean> {
+  return new Promise<boolean>((resolve) => {
+    confirmDialog(msg, dialogType, (success: boolean):void=>{
+      resolve(success);
+    });
+  });
+}
+
 export function confirmDialog(msg: string, dialogType?: DialogTypeEnum, callback?: (success: boolean) => void): JQuery {
   const mg =
     '<p style="padding: 20px;"><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>' +
@@ -213,7 +223,28 @@ export function confirmDialog(msg: string, dialogType?: DialogTypeEnum, callback
 
   let diaSettings: IDialogSettings = null;
   if (dialogType === DialogTypeEnum.Bootstrap) {
-    diaSettings = getBootstrapDialogSettings();
+    var callReturned = false;
+
+    var buttons = $(`<div>
+      <button type="button" class="btn btn-primary">Ok/button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>`);
+
+    var bootSettings = getBootstrapDialogSettings(null, null, ()=>{
+      if (callback && !callReturned)  {
+        callback(false);
+      }
+    }, "Confirm", buttons);
+    var okBtn = buttons.find("btn-primary");
+    okBtn.on("click", ()=>{
+      callReturned = true;
+      if (callback) {
+        callback(true);
+      }
+      window.closeBasePopupDialog(null);
+    });
+
+    diaSettings = bootSettings;
   } else {
     diaSettings = getJqueryUiDialogSettings(300, 200, '', {
       resizable: false,
@@ -280,6 +311,8 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
   </button>`);
     ht.find('.modal-body').append(body);
     ht.find('.modal-footer').append(settings.footer);
+  } else {
+
   }
 
   const iframe = pUp.find('iframe');
