@@ -309,7 +309,7 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
   const pUp = $('#globalPopUpDialog_' + dialogNum);
   let contArea = pUp.find('.modal-content');
 
-  let ht = $(html as any);
+  const ht = $(html as any);
 
   if (settings?.title !== null || settings?.footer !== null) {
     const headerArea = $(`<div class="modal-header">
@@ -323,7 +323,7 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
           .append(`<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button>`);
-  //bodyArea.append(body);
+  // bodyArea.append(body);
     footerArea.append(settings.footer);
 
     contArea.append(headerArea);
