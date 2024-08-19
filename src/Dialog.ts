@@ -298,14 +298,40 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
     show: true,
   };
 
+  let sizeString = "";
+  let sizeString2 = "";
+
+  const maxWidth = $(top).width();
+  const maxHeight = $(top).height();
+
+  if (!(settings.width === null || '' + settings.width === '')) {
+    settings.width = parseInt('' + settings.width, 10);
+    if (settings.width > maxWidth) {
+      settings.width = maxWidth;
+    }
+    if (settings.width > 0) {
+      sizeString = "max-width: " + settings.width + "px;";
+    }
+  }
+  if (!(settings.height === null || '' + settings.height === '')) {
+    settings.height = parseInt('' + settings.height, 10);
+    if (settings.height > maxHeight) {
+      settings.height = maxHeight;
+    }
+    if (settings.height > 0) {
+      sizeString2 = "min-height: " + settings.height + "px;";
+    }
+  }
+
+
   const mSettings = $.extend(true, {}, modalSettings, settings.settings);
 
   const dialogContent =
     `<div id='globalPopUpDialog_` +
     dialogNum +
     `' class='modal fade' tabindex='-1' aria-labelledby='' aria-hidden='true'>
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="` + sizeString + `">
+            <div class="modal-content" style="` + sizeString2 + `">
             </div>
         </div>
     </div>`;
