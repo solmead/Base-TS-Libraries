@@ -298,8 +298,8 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
     show: true,
   };
 
-  let sizeString = "";
-  let sizeString2 = "";
+  let sizeString = '';
+  let sizeString2 = '';
 
   const maxWidth = $(top).width();
   const maxHeight = $(top).height();
@@ -310,7 +310,7 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
       settings.width = maxWidth;
     }
     if (settings.width > 0) {
-      sizeString = "max-width: " + settings.width + "px;";
+      sizeString = 'max-width: ' + settings.width + 'px;';
     }
   }
   if (!(settings.height === null || '' + settings.height === '')) {
@@ -319,10 +319,9 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
       settings.height = maxHeight;
     }
     if (settings.height > 0) {
-      sizeString2 = "min-height: " + settings.height + "px;";
+      sizeString2 = 'min-height: ' + settings.height + 'px;';
     }
   }
-
 
   const mSettings = $.extend(true, {}, modalSettings, settings.settings);
 
@@ -330,8 +329,12 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
     `<div id='globalPopUpDialog_` +
     dialogNum +
     `' class='modal fade' tabindex='-1' aria-labelledby='' aria-hidden='true'>
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="` + sizeString + `">
-            <div class="modal-content" style="` + sizeString2 + `">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="` +
+    sizeString +
+    `">
+            <div class="modal-content" style="` +
+    sizeString2 +
+    `">
             </div>
         </div>
     </div>`;
