@@ -1,6 +1,7 @@
 ﻿import * as Tasks from './Tasks';
-import * as Debug from './Debug';
+//import * as Debug from './Debug';
 import * as ApiLibrary from './ApiLibrary';
+import * as EventHandler from './EventHandler';
 
 declare global {
   interface Date {
@@ -38,17 +39,18 @@ export class ServerTime {
   public offset: number = 0;
   public serverTimeLoaded: boolean = false;
 
+  public raiseMessageEvent = new EventHandler.EventHandler<string>();
+
+
   constructor(public timeApiUrl: string) {
     this.init();
   }
 
   public init = async () => {
-    Debug.debugWrite('Script Loaded in Browser');
     await Tasks.whenReady();
-    Debug.debugWrite('Page Loaded in Browser');
-    await Tasks.delay(1);
+    await Tasks.delay(10);
     await this.refreshServerTime();
-    Debug.debugWrite('Time Loaded from Server');
+    this.raiseMessageEvent.trigger('Time Loaded from Server');
   };
 
   public now = () => {
@@ -66,9 +68,9 @@ export class ServerTime {
     const ldt = new Date();
     this.offset = this.serverDateTime.getTime() - ldt.getTime();
     this.serverTimeLoaded = true;
-    Debug.debugWrite('ServerDateTime = ' + formatTime(this.serverDateTime));
-    Debug.debugWrite('LocalDateTime = ' + formatTime(ldt));
-    Debug.debugWrite(`Offset = ${this.offset}`);
+    this.raiseMessageEvent.trigger('ServerDateTime = ' + formatTime(this.serverDateTime));
+    this.raiseMessageEvent.trigger('LocalDateTime = ' + formatTime(ldt));
+    this.raiseMessageEvent.trigger(`Offset = ${this.offset}`);
 
     return;
   };

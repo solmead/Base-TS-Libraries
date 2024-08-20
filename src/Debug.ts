@@ -45,7 +45,13 @@ export class Messages {
   }
 
   private init = async () => {
+    this.addMessage('Script Loaded in Browser');
     await Tasks.whenReady();
+    this.addMessage('Page Loaded in Browser');
+    DateTime.serverTime.raiseMessageEvent.addListener((msg)=>{
+      this.addMessage(msg);
+    });
+
     await Tasks.delay(1);
     if ($) {
       this.area = $(this.displayLocation as any);
