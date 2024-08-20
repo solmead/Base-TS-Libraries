@@ -48,7 +48,7 @@ export class Messages {
     this.addMessage('Script Loaded in Browser');
     await Tasks.whenReady();
     this.addMessage('Page Loaded in Browser');
-    DateTime.serverTime.raiseMessageEvent.addListener((msg)=>{
+    DateTime.serverTime.raiseMessageEvent.addListener((msg) => {
       this.addMessage(msg);
     });
 

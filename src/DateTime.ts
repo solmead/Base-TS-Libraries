@@ -40,7 +40,6 @@ export class ServerTime {
 
   public raiseMessageEvent = new EventHandler.EventHandler<string>();
 
-
   constructor(public timeApiUrl: string) {
     this.init();
   }
