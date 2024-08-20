@@ -1,5 +1,6 @@
 ﻿import { ModalOption } from 'bootstrap';
 import * as EventHandler from './EventHandler';
+import * as Debug from './Debug';
 
 declare global {
   interface Window {
@@ -380,17 +381,24 @@ function showHtmlInBootstrap(html: string | JQuery, settings?: IBootDialogSettin
 
   // const myModal = new bootstrap.Modal(pUp[0], mSettings)
   const modal = $(pUp).modal(mSettings);
+  Debug.debugWrite("Bootstrap Modal Shown");
   modal.modal('show');
 
-  modal.on('hidden', () => {
+  modal.on('hidden.bs.modal', () => {
+    Debug.debugWrite("Bootstrap Modal Hidden");
     $('#globalPopUpDialog_' + dialogNum).remove();
+
+    Debug.debugWrite("Bootstrap Modal CallonClose = [" + settings.callOnClose + "]");
     if (settings.callOnClose && settings.callOnClose !== '') {
       const fn = myParent[settings.callOnClose as any] as any;
       if (typeof fn === 'function') {
+        Debug.debugWrite("Bootstrap Modal Calling on Close");
         fn(settings, dialogReturn);
       }
     }
+    Debug.debugWrite("Bootstrap Modal onComplete = [" + (settings.onComplete != null) + "]");
     if (settings.onComplete != null) {
+      Debug.debugWrite("Bootstrap Modal Calling on Complete");
       settings.onComplete();
     }
     dialogReturn = null;
