@@ -66,34 +66,31 @@ function checkOptions(options?: IAjaxCallOptions): IAjaxCallOptions {
 }
 
 export function AddScript(fileName: string): Promise<void> {
-  Debug.debugWrite("AddScript: " + fileName);
+  Debug.debugWrite('AddScript: ' + fileName);
   const scr = document.createElement('script');
   const head = document.head || document.getElementsByTagName('head')[0];
   scr.src = fileName;
   scr.async = false; // optionally
   const p = new Promise<void>((resolve) => {
-      scr.addEventListener('load', () => {
-          resolve();
-      });
+    scr.addEventListener('load', () => {
+      resolve();
+    });
   });
   head.insertBefore(scr, head.firstChild);
 
   return p;
 }
 export async function AddCss(fileName: string): Promise<void> {
-  Debug.debugWrite("AddCss: " + fileName);
+  Debug.debugWrite('AddCss: ' + fileName);
 
   const head = document.head || document.getElementsByTagName('head')[0];
-  
-  const style = document.createElement('link')
-  style.href = fileName
-  style.type = 'text/css'
-  style.rel = 'stylesheet'
+
+  const style = document.createElement('link');
+  style.href = fileName;
+  style.type = 'text/css';
+  style.rel = 'stylesheet';
   head.append(style);
-
-
 }
-
 
 if (jQuery) {
   if ($) {
