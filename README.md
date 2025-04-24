@@ -1,1 +1,1 @@
-# My Awesome Greeter
+# University of Cincinnati Base Typescript Libraries

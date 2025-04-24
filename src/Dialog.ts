@@ -77,8 +77,8 @@ export function changeDialogIFrameHeight(height: number) {
 
 export function resetPage() {
   setTimeout(() => {
-    window.location.reload();
-  }, 100);
+    window.location.replace(window.location.href);
+  }, 2000);
 }
 export function closeDialog() {
   window.closeBasePopupDialog('');
