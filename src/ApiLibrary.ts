@@ -111,8 +111,12 @@ export function apiCall(
   }
 }
 
-export function getCallAsync<TT>(url: string, seqNum?: number, sendData: any = null,
-  beforeSend?: (jqXHR: JQueryXHR) => any): Promise<TT> {
+export function getCallAsync<TT>(
+  url: string,
+  seqNum?: number,
+  sendData: any = null,
+  beforeSend?: (jqXHR: JQueryXHR) => any,
+): Promise<TT> {
   return new Promise<TT>((resolve, reject) => {
     getCall(
       url,
@@ -124,13 +128,17 @@ export function getCallAsync<TT>(url: string, seqNum?: number, sendData: any = n
       (jqXHR: JQueryXHR, extStatus: string, errorThrown: string) => {
         reject(Error(jqXHR, extStatus, errorThrown));
       },
-      beforeSend
+      beforeSend,
     );
   });
 }
 
-export function putCallAsync<TT>(url: string, seqNum?: number, sendData?: any,
-  beforeSend?: (jqXHR: JQueryXHR) => any): Promise<TT> {
+export function putCallAsync<TT>(
+  url: string,
+  seqNum?: number,
+  sendData?: any,
+  beforeSend?: (jqXHR: JQueryXHR) => any,
+): Promise<TT> {
   return new Promise<TT>((resolve, reject) => {
     putCall(
       url,
@@ -142,12 +150,16 @@ export function putCallAsync<TT>(url: string, seqNum?: number, sendData?: any,
       (jqXHR: JQueryXHR, extStatus: string, errorThrown: string) => {
         reject(Error(jqXHR, extStatus, errorThrown));
       },
-      beforeSend
+      beforeSend,
     );
   });
 }
-export function postCallAsync<TT>(url: string, seqNum?: number, sendData?: any,
-  beforeSend?: (jqXHR: JQueryXHR) => any): Promise<TT> {
+export function postCallAsync<TT>(
+  url: string,
+  seqNum?: number,
+  sendData?: any,
+  beforeSend?: (jqXHR: JQueryXHR) => any,
+): Promise<TT> {
   return new Promise<TT>((resolve, reject) => {
     postCall(
       url,
@@ -159,12 +171,16 @@ export function postCallAsync<TT>(url: string, seqNum?: number, sendData?: any,
       (jqXHR: JQueryXHR, extStatus: string, errorThrown: string) => {
         reject(Error(jqXHR, extStatus, errorThrown));
       },
-      beforeSend
+      beforeSend,
     );
   });
 }
-export function deleteCallAsync<TT>(url: string, seqNum?: number, sendData?: any,
-  beforeSend?: (jqXHR: JQueryXHR) => any): Promise<TT> {
+export function deleteCallAsync<TT>(
+  url: string,
+  seqNum?: number,
+  sendData?: any,
+  beforeSend?: (jqXHR: JQueryXHR) => any,
+): Promise<TT> {
   return new Promise<TT>((resolve, reject) => {
     deleteCall(
       url,
@@ -176,7 +192,7 @@ export function deleteCallAsync<TT>(url: string, seqNum?: number, sendData?: any
       (jqXHR: JQueryXHR, extStatus: string, errorThrown: string) => {
         reject(Error(jqXHR, extStatus, errorThrown));
       },
-      beforeSend
+      beforeSend,
     );
   });
 }
@@ -218,7 +234,7 @@ export function putCall(
   sendData?: any,
   successCallback?: (data: any, seq?: number) => any,
   errorCallback?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any,
-  beforeSend?: (jqXHR: JQueryXHR) => any
+  beforeSend?: (jqXHR: JQueryXHR) => any,
 ) {
   if (!seqNum) {
     seqNum = DateTime.getTimeCount();
